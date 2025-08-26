@@ -2033,11 +2033,14 @@
             }
 
             .hero-content {
-                order: 2;
+                order: 1;
+                grid-row: 1;
             }
 
             .hero-visual {
-                order: 1;
+                order: 2;
+                grid-row: 2;
+                margin-top: var(--space-2xl);
             }
 
             .about-content {
@@ -2062,6 +2065,10 @@
 
             .services-grid {
                 grid-template-columns: 1fr;
+            }
+            .hero-buttons {
+                justify-content: center;
+                align-items: center;
             }
         }
 
