@@ -90,6 +90,653 @@
             --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+    /* Hero orbit layout */
+        .hero-visual {
+            position: relative;
+            width: clamp(560px, 56vw, 760px); /* bigger stage */
+            min-height: clamp(560px, 58vw, 760px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slideInRight 1s var(--transition-smooth) 0.3s both;
+            margin: 0 auto;
+        }
+
+        /* remove framed background behind the technician to keep a clean, cutout look */
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0; /* keep subtle ambient but not a framed card */
+            background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.06) 0%, rgba(14, 165, 233, 0.025) 45%, transparent 70%);
+            filter: blur(28px);
+            z-index: 0;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .hero-tech-figure {
+            position: relative;
+            z-index: 3;
+            width: min(68vw, 820px); /* grow as much as possible on wide screens */
+            max-width: 100%;
+            pointer-events: none;
+            filter: drop-shadow(0 40px 80px rgba(15, 23, 42, 0.42)); /* stronger soft shadow to emulate depth */
+            transform-origin: center bottom;
+            background: transparent; /* ensure no background */
+            display: block;
+        }
+
+        /* orbit container — use CSS variables for easy tuning of the orbit center */
+        .hero-metrics-orbit {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* tuned orbit center to match your screenshot markers */
+            --orbit-cx: 68%; /* bias further right */
+            --orbit-cy: 46%;
+            z-index: 12; /* bring orbit above the technician stacking context */
+            pointer-events: auto;
+            touch-action: manipulation;
+        }
+
+        .hero-metric-bubble {
+            position: absolute;
+            width: clamp(110px, 11.5vw, 140px); /* smaller & more circular */
+            height: clamp(110px, 11.5vw, 140px);
+            padding: var(--space-md);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(226, 232, 240, 0.75);
+            box-shadow: 0 18px 40px -20px rgba(15, 23, 42, 0.28);
+            text-align: center;
+            overflow: hidden;
+            transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth), background 0.25s;
+            pointer-events: auto;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 12; /* bring bubbles in front of the technician by default */
+        }
+
+        .hero-metric-bubble::after {
+            content: '';
+            position: absolute;
+            width: 58%;
+            height: 58%;
+            border-radius: 50%;
+            background: linear-gradient(180deg, rgba(59,130,246,0.12), rgba(14,165,233,0.06));
+            z-index: 0;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+            opacity: 1;
+        }
+
+        .hero-metric-bubble:hover {
+            transform: translateY(-8px) scale(1.04);
+            box-shadow: 0 28px 70px -30px rgba(15, 23, 42, 0.45);
+            border-color: rgba(148, 163, 184, 0.5);
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,248,255,0.95));
+        }
+
+        .hero-metric-value {
+            position: relative;
+            z-index: 1;
+            display: block;
+            font-size: 1.25rem; /* smaller number */
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-metric-label {
+            position: relative;
+            z-index: 1;
+            font-size: 0.65rem; /* more compact label */
+            color: var(--slate-500);
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           CONTROL DE POSICIÓN DE BURBUJAS
+           Cambia estos números para mover las burbujas:
+           - left/right: posición horizontal (0-100)
+           - top: posición vertical (0-100)
+           ======================================== */
+        
+        /* LADO IZQUIERDO - 3 burbujas */
+        .hero-metric-bubble[data-position="top-left"] {
+            /* 🔵 BURBUJA 1 - Izquierda Superior
+               Horizontal: 2% desde la izquierda
+               Vertical: 15% desde arriba */
+            left: 1%;
+            top: 2%;
+            transform: translate(0, 0);
+        }
+
+        .hero-metric-bubble[data-position="middle-left"] {
+            /* 🔵 BURBUJA 2 - Izquierda Centro
+               Horizontal: 1% desde la izquierda
+               Vertical: 48% desde arriba */
+            left: 0%;
+            top: 35%;
+            transform: translate(0, -50%);
+        }
+
+        .hero-metric-bubble[data-position="bottom-left"] {
+            /* 🔵 BURBUJA 3 - Izquierda Inferior
+               Horizontal: 3% desde la izquierda
+               Vertical: 78% desde arriba */
+            left: 0%;
+            top: 82%;
+            transform: translate(0, 0);
+        }
+
+        /* LADO DERECHO - 3 burbujas */
+        .hero-metric-bubble[data-position="top-right"] {
+            /* 🔴 BURBUJA 4 - Derecha Superior
+               Horizontal: 2% desde la derecha
+               Vertical: 18% desde arriba */
+            right: 14%;
+            left: auto;
+            top: 6%;
+            transform: translate(0, 0);
+        }
+
+        .hero-metric-bubble[data-position="middle-right"] {
+            /* 🔴 BURBUJA 5 - Derecha Centro
+               Horizontal: 1% desde la derecha
+               Vertical: 52% desde arriba */
+            right: 15%;
+            left: auto;
+            top: 37%;
+            transform: translate(0, -50%);
+        }
+
+        .hero-metric-bubble[data-position="bottom-right"] {
+            /* 🔴 BURBUJA 6 - Derecha Inferior
+               Horizontal: 4% desde la derecha
+               Vertical: 82% desde arriba */
+            right: 15%;
+            left: auto;
+            top: 85%;
+            transform: translate(0, 0);
+        }
+
+        /* enhance bubble visuals for a modern/professional look */
+        .hero-metric-bubble {
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,252,255,0.96));
+        }
+
+        .hero-metric-bubble .hero-metric-value { font-size: 1.15rem; }
+        .hero-metric-bubble .hero-metric-label { font-size: 0.63rem; }
+
+        /* Mantener diseño orbital en tablet */
+        @media (max-width: 1024px) {
+            .hero-visual {
+                width: 92%;
+                min-height: 520px;
+            }
+            .hero-tech-figure {
+                width: min(74vw, 620px);
+            }
+            .hero-metric-bubble {
+                width: clamp(90px, 14vw, 110px);
+                height: clamp(90px, 14vw, 110px);
+                padding: var(--space-sm);
+            }
+            .hero-metric-value {
+                font-size: 1rem !important;
+            }
+            .hero-metric-label {
+                font-size: 0.55rem !important;
+            }
+        }
+
+        /* Mantener diseño orbital en móviles - adaptado */
+        @media (max-width: 768px) {
+            .hero-visual { 
+                min-height: 550px !important;
+                width: 100% !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            .hero-tech-figure { 
+                width: min(60vw, 350px) !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+            
+            /* Mantener las burbujas en posición orbital para móviles */
+            .hero-metrics-orbit {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: 95% !important;
+                height: 95% !important;
+                display: block !important;
+                grid-template-columns: unset !important;
+                gap: unset !important;
+                z-index: 1 !important;
+            }
+            
+            .hero-metric-bubble {
+                position: absolute !important;
+                width: 95px !important;
+                height: 95px !important;
+                padding: 8px !important;
+            }
+            
+            .hero-metric-value {
+                font-size: 1.05rem !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .hero-metric-label {
+                font-size: 0.55rem !important;
+                line-height: 1.15 !important;
+            }
+            
+            /* Distribución orbital alrededor del técnico - MÓVIL */
+            /* Top-left: arriba a la izquierda */
+            .hero-metric-bubble[data-position="top-left"] {
+                left: 8% !important;
+                top: 8% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            /* Top-right: arriba a la derecha */
+            .hero-metric-bubble[data-position="top-right"] {
+                right: 8% !important;
+                left: auto !important;
+                top: 8% !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            /* Middle-left: centro izquierda */
+            .hero-metric-bubble[data-position="middle-left"] {
+                left: 2% !important;
+                top: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            /* Middle-right: centro derecha */
+            .hero-metric-bubble[data-position="middle-right"] {
+                right: 2% !important;
+                left: auto !important;
+                top: 50% !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            /* Bottom-left: abajo a la izquierda */
+            .hero-metric-bubble[data-position="bottom-left"] {
+                left: 8% !important;
+                bottom: 8% !important;
+                top: auto !important;
+                right: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            /* Bottom-right: abajo a la derecha */
+            .hero-metric-bubble[data-position="bottom-right"] {
+                right: 8% !important;
+                bottom: 8% !important;
+                left: auto !important;
+                top: auto !important;
+                transform: translate(0, 0) !important;
+            }
+        }
+        
+        /* Tablets portrait - resolución específica 769px x 855px */
+        @media (min-width: 769px) and (max-width: 855px) {
+            .hero-visual { 
+                min-height: 550px !important;
+                width: 100% !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            .hero-tech-figure { 
+                width: min(55vw, 380px) !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+            
+            /* Mantener las burbujas en posición orbital para tablets */
+            .hero-metrics-orbit {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: 95% !important;
+                height: 95% !important;
+                display: block !important;
+                grid-template-columns: unset !important;
+                gap: unset !important;
+                z-index: 1 !important;
+            }
+            
+            .hero-metric-bubble {
+                position: absolute !important;
+                width: 100px !important;
+                height: 100px !important;
+                padding: 10px !important;
+            }
+            
+            .hero-metric-value {
+                font-size: 1.1rem !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .hero-metric-label {
+                font-size: 0.58rem !important;
+                line-height: 1.15 !important;
+            }
+            
+            /* Distribución orbital - Tablets */
+            .hero-metric-bubble[data-position="top-left"] {
+                left: 8% !important;
+                top: 8% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="top-right"] {
+                right: 8% !important;
+                left: auto !important;
+                top: 8% !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="middle-left"] {
+                left: 2% !important;
+                top: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            .hero-metric-bubble[data-position="middle-right"] {
+                right: 2% !important;
+                left: auto !important;
+                top: 50% !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-left"] {
+                left: 8% !important;
+                bottom: 8% !important;
+                top: auto !important;
+                right: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-right"] {
+                right: 8% !important;
+                bottom: 8% !important;
+                left: auto !important;
+                top: auto !important;
+                transform: translate(0, 0) !important;
+            }
+        }
+        
+        /* Tablets landscape y pantallas medianas - 856px a 1024px */
+        @media (min-width: 856px) and (max-width: 1024px) {
+            .hero-visual { 
+                min-height: 580px !important;
+                width: 100% !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            .hero-tech-figure { 
+                width: min(50vw, 450px) !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+            
+            /* Mantener las burbujas en posición orbital */
+            .hero-metrics-orbit {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: 95% !important;
+                height: 95% !important;
+                display: block !important;
+                grid-template-columns: unset !important;
+                gap: unset !important;
+                z-index: 1 !important;
+            }
+            
+            .hero-metric-bubble {
+                position: absolute !important;
+                width: 110px !important;
+                height: 110px !important;
+                padding: 12px !important;
+            }
+            
+            .hero-metric-value {
+                font-size: 1.15rem !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .hero-metric-label {
+                font-size: 0.6rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            /* Distribución orbital */
+            .hero-metric-bubble[data-position="top-left"] {
+                left: 6% !important;
+                top: 10% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="top-right"] {
+                right: 6% !important;
+                left: auto !important;
+                top: 10% !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="middle-left"] {
+                left: 1% !important;
+                top: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            .hero-metric-bubble[data-position="middle-right"] {
+                right: 1% !important;
+                left: auto !important;
+                top: 50% !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-left"] {
+                left: 6% !important;
+                bottom: 10% !important;
+                top: auto !important;
+                right: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-right"] {
+                right: 6% !important;
+                bottom: 10% !important;
+                left: auto !important;
+                top: auto !important;
+                transform: translate(0, 0) !important;
+            }
+        }
+        
+        /* Pantallas medianas a grandes - 1025px a 1366px */
+        @media (min-width: 1025px) and (max-width: 1366px) {
+            .hero-visual { 
+                min-height: 600px !important;
+                width: 100% !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            .hero-tech-figure { 
+                width: min(45vw, 520px) !important;
+                position: relative !important;
+                z-index: 2 !important;
+            }
+            
+            /* Mantener las burbujas en posición orbital */
+            .hero-metrics-orbit {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: 95% !important;
+                height: 95% !important;
+                display: block !important;
+                grid-template-columns: unset !important;
+                gap: unset !important;
+                z-index: 1 !important;
+            }
+            
+            .hero-metric-bubble {
+                position: absolute !important;
+                width: 120px !important;
+                height: 120px !important;
+                padding: 14px !important;
+            }
+            
+            .hero-metric-value {
+                font-size: 1.2rem !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .hero-metric-label {
+                font-size: 0.62rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            /* Distribución orbital */
+            .hero-metric-bubble[data-position="top-left"] {
+                left: 4% !important;
+                top: 12% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="top-right"] {
+                right: 4% !important;
+                left: auto !important;
+                top: 12% !important;
+                bottom: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="middle-left"] {
+                left: 1% !important;
+                top: 50% !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            .hero-metric-bubble[data-position="middle-right"] {
+                right: 1% !important;
+                left: auto !important;
+                top: 50% !important;
+                bottom: auto !important;
+                transform: translate(0, -50%) !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-left"] {
+                left: 4% !important;
+                bottom: 12% !important;
+                top: auto !important;
+                right: auto !important;
+                transform: translate(0, 0) !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-right"] {
+                right: 4% !important;
+                bottom: 12% !important;
+                left: auto !important;
+                top: auto !important;
+                transform: translate(0, 0) !important;
+            }
+        }
+        
+        /* Móviles pequeños - mantener diseño orbital compacto */
+        @media (max-width: 480px) {
+            .hero-visual {
+                min-height: 500px;
+            }
+            
+            .hero-tech-figure {
+                width: min(65vw, 300px);
+            }
+            
+            .hero-metric-bubble {
+                width: 85px !important;
+                height: 85px !important;
+                padding: 6px;
+            }
+            
+            .hero-metric-value {
+                font-size: 0.95rem !important;
+            }
+            
+            .hero-metric-label {
+                font-size: 0.5rem !important;
+            }
+            
+            /* Ajustar posiciones para pantallas muy pequeñas */
+            .hero-metric-bubble[data-position="top-left"],
+            .hero-metric-bubble[data-position="top-right"] {
+                top: 5% !important;
+            }
+            
+            .hero-metric-bubble[data-position="bottom-left"],
+            .hero-metric-bubble[data-position="bottom-right"] {
+                bottom: 5% !important;
+            }
+        }
+
         /* Reset and base styles */
         * {
             margin: 0;
@@ -116,58 +763,6 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Modern Keyframes */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-10px) rotate(1deg); }
-            50% { transform: translateY(-15px) rotate(0deg); }
-            75% { transform: translateY(-5px) rotate(-1deg); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8) rotate(-5deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
         }
 
         @keyframes glowPulse {
@@ -566,69 +1161,11 @@
             max-width: 600px;
         }
 
-        .hero-stats {
-            display: flex;
-            gap: var(--space-2xl);
-            margin-bottom: var(--space-3xl);
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: var(--space-lg);
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius-xl);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-            transition: all var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: left var(--transition-smooth);
-        }
-
-        .stat-item:hover::before {
-            left: 0;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: var(--space-xs);
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--slate-600);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
         .hero-buttons {
             display: flex;
             gap: var(--space-lg);
             flex-wrap: wrap;
+            margin-top: var(--space-2xl);
         }
 
         .btn-primary {
@@ -711,148 +1248,6 @@
             box-shadow: var(--shadow-lg);
         }
 
-        .hero-visual {
-            position: relative;
-            animation: slideInRight 1s var(--transition-smooth) 0.3s both;
-        }
-
-        .hero-dashboard {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius-3xl);
-            padding: var(--space-2xl);
-            box-shadow: var(--shadow-2xl);
-            border: 1px solid rgba(226, 232, 240, 0.5);
-            position: relative;
-            overflow: hidden;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero-dashboard::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-        }
-
-        .dashboard-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-lg);
-            margin-bottom: var(--space-xl);
-            padding-bottom: var(--space-lg);
-            border-bottom: 1px solid var(--slate-200);
-        }
-
-        .dashboard-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-xl);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.75rem;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-icon::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: iconRotate 4s linear infinite;
-            opacity: 0;
-            transition: opacity var(--transition-smooth);
-        }
-
-        .hero-dashboard:hover .dashboard-icon::before {
-            opacity: 1;
-        }
-
-        .dashboard-info h3 {
-            font-size: 1.375rem;
-            font-weight: 800;
-            color: var(--slate-900);
-            margin-bottom: var(--space-xs);
-        }
-
-        .dashboard-info p {
-            color: var(--slate-600);
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .dashboard-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-lg);
-        }
-
-        .metric-card {
-            background: var(--slate-50);
-            padding: var(--space-xl);
-            border-radius: var(--radius-xl);
-            text-align: center;
-            border: 1px solid var(--slate-200);
-            transition: all var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: opacity var(--transition-smooth);
-            border-radius: var(--radius-xl);
-        }
-
-        .metric-card:hover::before {
-            opacity: 0.05;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .metric-value {
-            position: relative;
-            z-index: 2;
-            font-size: 1.90rem;
-            font-weight: 900;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-            margin-bottom: var(--space-sm);
-        }
-
-        .metric-label {
-            position: relative;
-            z-index: 2;
-            font-size: 0.75rem;
-            color: var(--slate-600);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
 
         /* Section base styles */
         .section {
@@ -919,7 +1314,6 @@
             transition: all var(--transition-smooth);
             position: relative;
             overflow: hidden;
-            group: hover;
         }
 
         .service-card::before {
@@ -1041,7 +1435,410 @@
 
         /* Benefits Section */
         .benefits {
-            background: var(--white);
+            background: var(--slate-50);
+        }
+
+        /* Telecommunications Section */
+        .telecommunications {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .telecommunications::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .telecom-header {
+            text-align: center;
+            margin-bottom: var(--space-4xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .telecom-header .section-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--light-blue);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .telecom-header h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-lg);
+            line-height: 1.2;
+        }
+
+        .telecom-header p {
+            font-size: 1.2rem;
+            color: var(--slate-300);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .telecom-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4xl);
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .telecom-video-wrapper {
+            position: relative;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            background: transparent;
+            height: 100%;
+        }
+
+        .telecom-video {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            display: block;
+            border-radius: var(--radius-xl);
+        }
+
+        .telecom-info {
+            color: var(--white);
+        }
+
+        .telecom-services-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .telecom-service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .telecom-service-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-accent);
+            transform: scaleY(0);
+            transition: transform var(--transition-smooth);
+        }
+
+        .telecom-service-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(8px);
+        }
+
+        .telecom-service-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .telecom-service-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .telecom-service-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--space-xs);
+        }
+
+        .telecom-service-content p {
+            font-size: 0.95rem;
+            color: var(--slate-400);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Responsive - Telecommunications */
+        @media (min-width: 1367px) {
+            .telecom-video {
+                min-height: 500px;
+            }
+        }
+
+        @media (min-width: 1025px) and (max-width: 1366px) {
+            .telecom-content {
+                gap: var(--space-3xl);
+            }
+
+            .telecom-video {
+                min-height: 450px;
+            }
+
+            .telecom-service-item {
+                padding: var(--space-md);
+            }
+
+            .telecom-service-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (min-width: 856px) and (max-width: 1024px) {
+            .telecom-header h2 {
+                font-size: clamp(2rem, 4.5vw, 3rem);
+            }
+
+            .telecom-header p {
+                font-size: 1.1rem;
+            }
+
+            .telecom-content {
+                gap: var(--space-2xl);
+            }
+
+            .telecom-video {
+                min-height: 400px;
+            }
+
+            .telecom-service-item {
+                padding: var(--space-md);
+            }
+
+            .telecom-service-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+
+            .telecom-service-content h4 {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* Responsive específico para 856x866 hasta 1025x866 */
+        @media (min-width: 856px) and (max-width: 1025px) and (min-height: 800px) and (max-height: 900px) {
+            .telecom-header {
+                margin-bottom: var(--space-3xl);
+            }
+
+            .telecom-header h2 {
+                font-size: clamp(2rem, 4vw, 2.75rem);
+            }
+
+            .telecom-header p {
+                font-size: 1.05rem;
+            }
+
+            .telecom-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .telecom-video-wrapper {
+                order: 1;
+            }
+
+            .telecom-info {
+                order: 2;
+            }
+
+            .telecom-video {
+                min-height: 380px;
+                max-height: 450px;
+            }
+
+            .telecom-services-list {
+                gap: var(--space-md);
+            }
+
+            .telecom-service-item {
+                padding: var(--space-md);
+            }
+
+            .telecom-service-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+
+            .telecom-service-content h4 {
+                font-size: 1.05rem;
+            }
+
+            .telecom-service-content p {
+                font-size: 0.93rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 855px) {
+            .telecom-header {
+                margin-bottom: var(--space-3xl);
+            }
+
+            .telecom-header h2 {
+                font-size: clamp(1.85rem, 4vw, 2.5rem);
+            }
+
+            .telecom-header p {
+                font-size: 1.05rem;
+            }
+
+            .telecom-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .telecom-video-wrapper {
+                order: 1;
+            }
+
+            .telecom-info {
+                order: 2;
+            }
+
+            .telecom-video {
+                min-height: 350px;
+            }
+
+            .telecom-services-list {
+                gap: var(--space-md);
+            }
+
+            .telecom-service-item {
+                padding: var(--space-md);
+            }
+
+            .telecom-service-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .telecom-header {
+                margin-bottom: var(--space-2xl);
+            }
+
+            .telecom-header h2 {
+                font-size: clamp(1.75rem, 5vw, 2.5rem);
+            }
+
+            .telecom-header p {
+                font-size: 1rem;
+            }
+
+            .telecom-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .telecom-video-wrapper {
+                order: 1;
+            }
+
+            .telecom-info {
+                order: 2;
+            }
+
+            .telecom-video {
+                min-height: 300px;
+            }
+
+            .telecom-services-list {
+                gap: var(--space-md);
+            }
+
+            .telecom-service-item {
+                padding: var(--space-md);
+            }
+
+            .telecom-service-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .telecom-service-content h4 {
+                font-size: 1rem;
+            }
+
+            .telecom-service-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .telecom-header h2 {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+
+            .telecom-header p {
+                font-size: 0.95rem;
+            }
+
+            .telecom-video {
+                min-height: 250px;
+            }
+
+            .telecom-service-item {
+                flex-direction: row;
+                padding: var(--space-md);
+            }
+
+            .telecom-services-list {
+                gap: var(--space-sm);
+            }
+
+            .telecom-service-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
+            }
+
+            .telecom-service-content h4 {
+                font-size: 0.95rem;
+            }
+
+            .telecom-service-content p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: var(--slate-50);
         }
 
         .benefits-grid {
@@ -2070,6 +2867,33 @@
                 order: 2;
                 grid-row: 2;
                 margin-top: var(--space-2xl);
+                align-items: center;
+                width: min(100%, 420px);
+                min-height: auto;
+            }
+
+            .hero-tech-figure {
+                width: clamp(240px, 55vw, 340px);
+            }
+
+            .hero-metrics-orbit {
+                position: static;
+                inset: auto;
+                width: 100%;
+                margin-top: var(--space-xl);
+                display: grid;
+                grid-template-columns: repeat(2, minmax(140px, 1fr));
+                gap: var(--space-lg);
+            }
+
+            .hero-metric-bubble {
+                position: relative;
+                top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
+                width: 100%;
+                transform: none;
             }
 
             .about-content {
@@ -2085,11 +2909,6 @@
             .footer-content {
                 grid-template-columns: 1fr 1fr;
                 gap: var(--space-xl);
-            }
-
-            .hero-stats {
-                justify-content: center;
-                gap: var(--space-lg);
             }
 
             .services-grid {
@@ -2127,10 +2946,11 @@
                 align-items: center;
             }
 
-            .hero-stats {
-                flex-direction: column;
-                gap: var(--space-lg);
+            .hero-tech-figure {
+                width: clamp(220px, 70vw, 320px);
             }
+
+            /* NO cambiar hero-metrics-orbit aquí - mantener diseño orbital */
 
             .about-stats-grid {
                 grid-template-columns: 1fr;
@@ -2169,6 +2989,10 @@
                 font-size: clamp(2rem, 8vw, 3rem);
             }
 
+            .hero-tech-figure {
+                width: min(100%, 280px);
+            }
+
             .whatsapp-float {
                 width: 70px;
                 height: 70px;
@@ -2191,12 +3015,10 @@
                 padding: var(--space-xl);
             }
 
-            .hero-dashboard {
-                padding: var(--space-lg);
-            }
-
-            .stat-item {
-                padding: var(--space-md);
+            .hero-metrics-orbit {
+                width: min(100%, 280px);
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
             }
 
             .btn-primary,
@@ -2290,6 +3112,7 @@
             <ul class="nav-menu" id="navMenu">
             <li><a href="#inicio" class="nav-link">Inicio</a></li>
             <li><a href="#servicios" class="nav-link">Servicios</a></li>
+            <li><a href="#telecomunicaciones" class="nav-link">Telecomunicaciones</a></li>
             <li><a href="#beneficios" class="nav-link">Beneficios</a></li>
             <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
             <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
@@ -2323,21 +3146,6 @@
                         Más de 5 años brindando soluciones en rubros de telecomunicaciones, civil y minería. Técnicos certificados, tecnología avanzada y garantía total en cada servicio.
                     </p>
                     
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="98">0</span>
-                            <span class="stat-label">Clientes Satisfechos</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="82">0</span>
-                            <span class="stat-label">% NLS</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="23">0</span>
-                            <span class="stat-label">Técnicos a Nivel Nacional</span>
-                        </div>
-                    </div>
-
                     <div class="hero-buttons">
                         <a href="#contacto" class="btn-primary">
                             <i class="fas fa-calendar-alt"></i>
@@ -2351,33 +3159,31 @@
                 </div>
                 
                 <div class="hero-visual">
-                    <div class="hero-dashboard">
-                        <div class="dashboard-header">
-                            <div class="dashboard-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="dashboard-info">
-                                <h3>Panel de Control SVC</h3>
-                                <p>Métricas en tiempo real</p>
-                            </div>
+                    <img class="hero-tech-figure" src="assets/tecnico.png" alt="Especialista SVC Ingenieros" loading="lazy">
+                    <div class="hero-metrics-orbit animate-scale" aria-label="Indicadores clave del servicio">
+                        <div class="hero-metric-bubble" data-position="top-left">
+                            <span class="hero-metric-value" data-target="98">0</span>
+                            <span class="hero-metric-label">Clientes satisfechos</span>
                         </div>
-                        <div class="dashboard-metrics">
-                            <div class="metric-card">
-                                <span class="metric-value">3,538</span>
-                                <span class="metric-label">Servicios atendidos</span>
-                            </div>
-                            <div class="metric-card">
-                                <span class="metric-value">24/7</span>
-                                <span class="metric-label">Soporte</span>
-                            </div>
-                            <div class="metric-card">
-                                <span class="metric-value">45,604</span>
-                                <span class="metric-label">Horas sin accidentes</span>
-                            </div>
-                            <div class="metric-card">
-                                <span class="metric-value">18</span>
-                                <span class="metric-label">Provincias del Perú</span>
-                            </div>
+                        <div class="hero-metric-bubble" data-position="top-right">
+                            <span class="hero-metric-value" data-target="82" data-suffix="%">0%</span>
+                            <span class="hero-metric-label">Nivel de NLS</span>
+                        </div>
+                        <div class="hero-metric-bubble" data-position="middle-right">
+                            <span class="hero-metric-value" data-target="23">0</span>
+                            <span class="hero-metric-label">Técnicos a nivel nacional</span>
+                        </div>
+                        <div class="hero-metric-bubble" data-position="middle-left">
+                            <span class="hero-metric-value">24/7</span>
+                            <span class="hero-metric-label">Soporte especializado</span>
+                        </div>
+                        <div class="hero-metric-bubble" data-position="bottom-left">
+                            <span class="hero-metric-value" data-target="45604" data-format="comma">0</span>
+                            <span class="hero-metric-label">Horas sin accidentes</span>
+                        </div>
+                        <div class="hero-metric-bubble" data-position="bottom-right">
+                            <span class="hero-metric-value" data-target="18">0</span>
+                            <span class="hero-metric-label">Provincias del Perú</span>
                         </div>
                     </div>
                 </div>
@@ -2464,6 +3270,83 @@
                     <a href="#contacto" class="service-link">
                         Más información <i class="fas fa-arrow-right"></i>
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Telecommunications Section -->
+    <section id="telecomunicaciones" class="telecommunications section">
+        <div class="container">
+            <div class="telecom-header animate-on-scroll">
+                <span class="section-badge">
+                    <i class="fas fa-broadcast-tower"></i>
+                    Telecomunicaciones
+                </span>
+                <h2>Soluciones Integrales en Telecomunicaciones</h2>
+                <p>Implementamos tecnología de punta en infraestructura de telecomunicaciones, garantizando conectividad confiable y de alto rendimiento para tu empresa.</p>
+            </div>
+
+            <div class="telecom-content">
+                <div class="telecom-video-wrapper animate-fade-left">
+                    <video class="telecom-video" controls controlsList="nodownload" preload="metadata">
+                        <source src="assets/Vídeo sin título ‐ Hecho con Clipchamp (2).mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+
+                <div class="telecom-info animate-fade-right">
+                    <ul class="telecom-services-list">
+                        <li class="telecom-service-item">
+                            <div class="telecom-service-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="telecom-service-content">
+                                <h4>Instalación HFC y FTTH</h4>
+                                <p>Servicio de instalación de altas y migraciones a través de HFC y FTTH</p>
+                            </div>
+                        </li>
+                        
+                        <li class="telecom-service-item">
+                            <div class="telecom-service-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="telecom-service-content">
+                                <h4>Mantenimiento y Postventa</h4>
+                                <p>Servicios de mantenimientos y postventa de HFC y FTTH</p>
+                            </div>
+                        </li>
+                        
+                        <li class="telecom-service-item">
+                            <div class="telecom-service-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="telecom-service-content">
+                                <h4>Cableado Estructurado</h4>
+                                <p>Tendido e instalación de cableado estructurado y fibra óptica</p>
+                            </div>
+                        </li>
+                        
+                        <li class="telecom-service-item">
+                            <div class="telecom-service-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="telecom-service-content">
+                                <h4>Telefonía Especializada</h4>
+                                <p>Servicio de telefonía pública para establecimientos penitenciarios</p>
+                            </div>
+                        </li>
+                        
+                        <li class="telecom-service-item">
+                            <div class="telecom-service-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="telecom-service-content">
+                                <h4>Telefonía IP y Centralitas</h4>
+                                <p>Instalación y configuración de sistemas de telefonía IP y centralitas</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -2682,7 +3565,7 @@
                             <div class="about-stat-icon">
                                 <i class="fas fa-clock"></i>
                             </div>
-                            <span class="about-stat-number">4+</span>
+                            <span class="about-stat-number">5+</span>
                             <span class="about-stat-label">Años de Experiencia</span>
                         </div>
                         
@@ -3048,7 +3931,7 @@
                         entry.target.classList.add('visible');
                         
                         // Trigger counters when stats section is visible
-                        if (entry.target.classList.contains('hero-stats')) {
+                        if (entry.target.classList.contains('hero-metrics-orbit')) {
                             animateCounters();
                         }
                     }
@@ -3057,7 +3940,7 @@
 
             // Observe all animated elements
             const animatedElements = document.querySelectorAll(
-                '.animate-on-scroll, .animate-fade-left, .animate-fade-right, .animate-scale, .hero-stats'
+                '.animate-on-scroll, .animate-fade-left, .animate-fade-right, .animate-scale, .hero-metrics-orbit'
             );
             animatedElements.forEach(el => observer.observe(el));
         }
@@ -3067,17 +3950,38 @@
             window.animateCounters = function() {
                 const counters = document.querySelectorAll('[data-target]');
                 counters.forEach(counter => {
-                    const target = parseInt(counter.getAttribute('data-target'));
-                    const increment = target / 60;
+                    if (counter.dataset.animated === 'true') {
+                        return;
+                    }
+
+                    const target = Number(counter.getAttribute('data-target'));
+                    if (Number.isNaN(target)) {
+                        return;
+                    }
+
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    const prefix = counter.getAttribute('data-prefix') || '';
+                    const format = counter.getAttribute('data-format');
+
+                    const steps = 60;
+                    const increment = target / steps;
                     let current = 0;
-                    
+                    counter.dataset.animated = 'true';
+
                     const timer = setInterval(() => {
                         current += increment;
-                        const value = Math.floor(current);
-                        counter.textContent = value;
-                        
                         if (current >= target) {
-                            counter.textContent = target;
+                            current = target;
+                        }
+
+                        let displayValue = Math.round(current);
+                        if (format === 'comma') {
+                            displayValue = Math.round(current).toLocaleString('es-PE');
+                        }
+
+                        counter.textContent = `${prefix}${displayValue}${suffix}`;
+
+                        if (current === target) {
                             clearInterval(timer);
                         }
                     }, 30);
