@@ -1594,27 +1594,11 @@
             }
         }
 
-        @media (min-width: 1025px) and (max-width: 1366px) {
-            .telecom-content {
-                gap: var(--space-3xl);
+        @media (max-width: 1366px) {
+            .telecom-header {
+                margin-bottom: var(--space-3xl);
             }
 
-            .telecom-video {
-                min-height: 450px;
-            }
-
-            .telecom-service-item {
-                padding: var(--space-md);
-            }
-
-            .telecom-service-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.4rem;
-            }
-        }
-
-        @media (min-width: 856px) and (max-width: 1024px) {
             .telecom-header h2 {
                 font-size: clamp(2rem, 4.5vw, 3rem);
             }
@@ -1624,7 +1608,16 @@
             }
 
             .telecom-content {
+                grid-template-columns: 1fr;
                 gap: var(--space-2xl);
+            }
+
+            .telecom-video-wrapper {
+                order: 1;
+            }
+
+            .telecom-info {
+                order: 2;
             }
 
             .telecom-video {
@@ -1646,106 +1639,6 @@
             }
         }
 
-        /* Responsive específico para 856x866 hasta 1025x866 */
-        @media (min-width: 856px) and (max-width: 1025px) and (min-height: 800px) and (max-height: 900px) {
-            .telecom-header {
-                margin-bottom: var(--space-3xl);
-            }
-
-            .telecom-header h2 {
-                font-size: clamp(2rem, 4vw, 2.75rem);
-            }
-
-            .telecom-header p {
-                font-size: 1.05rem;
-            }
-
-            .telecom-content {
-                grid-template-columns: 1fr;
-                gap: var(--space-2xl);
-            }
-
-            .telecom-video-wrapper {
-                order: 1;
-            }
-
-            .telecom-info {
-                order: 2;
-            }
-
-            .telecom-video {
-                min-height: 380px;
-                max-height: 450px;
-            }
-
-            .telecom-services-list {
-                gap: var(--space-md);
-            }
-
-            .telecom-service-item {
-                padding: var(--space-md);
-            }
-
-            .telecom-service-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.3rem;
-            }
-
-            .telecom-service-content h4 {
-                font-size: 1.05rem;
-            }
-
-            .telecom-service-content p {
-                font-size: 0.93rem;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 855px) {
-            .telecom-header {
-                margin-bottom: var(--space-3xl);
-            }
-
-            .telecom-header h2 {
-                font-size: clamp(1.85rem, 4vw, 2.5rem);
-            }
-
-            .telecom-header p {
-                font-size: 1.05rem;
-            }
-
-            .telecom-content {
-                grid-template-columns: 1fr;
-                gap: var(--space-2xl);
-            }
-
-            .telecom-video-wrapper {
-                order: 1;
-            }
-
-            .telecom-info {
-                order: 2;
-            }
-
-            .telecom-video {
-                min-height: 350px;
-            }
-
-            .telecom-services-list {
-                gap: var(--space-md);
-            }
-
-            .telecom-service-item {
-                padding: var(--space-md);
-            }
-
-            .telecom-service-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.3rem;
-            }
-        }
-
         @media (max-width: 768px) {
             .telecom-header {
                 margin-bottom: var(--space-2xl);
@@ -1759,29 +1652,12 @@
                 font-size: 1rem;
             }
 
-            .telecom-content {
-                grid-template-columns: 1fr;
-                gap: var(--space-2xl);
-            }
-
-            .telecom-video-wrapper {
-                order: 1;
-            }
-
-            .telecom-info {
-                order: 2;
-            }
-
             .telecom-video {
                 min-height: 300px;
             }
 
             .telecom-services-list {
                 gap: var(--space-md);
-            }
-
-            .telecom-service-item {
-                padding: var(--space-md);
             }
 
             .telecom-service-icon {
@@ -1832,6 +1708,282 @@
             }
 
             .telecom-service-content p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Machinery Section */
+        .machinery {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .machinery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 50%, rgba(234, 179, 8, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .machinery-header {
+            text-align: center;
+            margin-bottom: var(--space-4xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .machinery-header .section-badge {
+            background: rgba(234, 179, 8, 0.2);
+            color: #FCD34D;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+
+        .machinery-header h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--white) 0%, #FCD34D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-lg);
+            line-height: 1.2;
+        }
+
+        .machinery-header p {
+            font-size: 1.2rem;
+            color: var(--slate-300);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .machinery-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4xl);
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .machinery-info {
+            color: var(--white);
+            order: 1;
+        }
+
+        .machinery-video-wrapper {
+            position: relative;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            background: transparent;
+            height: 100%;
+            order: 2;
+        }
+
+        .machinery-video {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            display: block;
+            border-radius: var(--radius-xl);
+        }
+
+        .machinery-services-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .machinery-service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .machinery-service-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #EAB308 0%, #FCD34D 100%);
+            transform: scaleY(0);
+            transition: transform var(--transition-smooth);
+        }
+
+        .machinery-service-item:hover {
+            background: rgba(234, 179, 8, 0.1);
+            border-color: rgba(234, 179, 8, 0.3);
+            transform: translateX(8px);
+        }
+
+        .machinery-service-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .machinery-service-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, #EAB308 0%, #FCD34D 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate-900);
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px 0 rgba(234, 179, 8, 0.3);
+        }
+
+        .machinery-service-content h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--space-xs);
+        }
+
+        .machinery-service-content p {
+            font-size: 0.95rem;
+            color: var(--slate-400);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Responsive - Machinery */
+        @media (min-width: 1367px) {
+            .machinery-video {
+                min-height: 500px;
+            }
+        }
+
+        @media (max-width: 1366px) {
+            .machinery-header {
+                margin-bottom: var(--space-3xl);
+            }
+
+            .machinery-header h2 {
+                font-size: clamp(2rem, 4.5vw, 3rem);
+            }
+
+            .machinery-header p {
+                font-size: 1.1rem;
+            }
+
+            .machinery-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+            }
+
+            .machinery-video-wrapper {
+                order: 1;
+            }
+
+            .machinery-info {
+                order: 2;
+            }
+
+            .machinery-video {
+                min-height: 400px;
+            }
+
+            .machinery-service-item {
+                padding: var(--space-md);
+            }
+
+            .machinery-service-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+
+            .machinery-service-content h4 {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .machinery-header {
+                margin-bottom: var(--space-2xl);
+            }
+
+            .machinery-header h2 {
+                font-size: clamp(1.75rem, 5vw, 2.5rem);
+            }
+
+            .machinery-header p {
+                font-size: 1rem;
+            }
+
+            .machinery-video {
+                min-height: 300px;
+            }
+
+            .machinery-services-list {
+                gap: var(--space-md);
+            }
+
+            .machinery-service-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .machinery-service-content h4 {
+                font-size: 1rem;
+            }
+
+            .machinery-service-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .machinery-header h2 {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+
+            .machinery-header p {
+                font-size: 0.95rem;
+            }
+
+            .machinery-video {
+                min-height: 250px;
+            }
+
+            .machinery-service-item {
+                flex-direction: row;
+                padding: var(--space-md);
+            }
+
+            .machinery-services-list {
+                gap: var(--space-sm);
+            }
+
+            .machinery-service-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
+            }
+
+            .machinery-service-content h4 {
+                font-size: 0.95rem;
+            }
+
+            .machinery-service-content p {
                 font-size: 0.85rem;
             }
         }
@@ -2038,7 +2190,7 @@
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: var(--space-2xl);
         }
 
@@ -2050,6 +2202,8 @@
             position: relative;
             transition: all var(--transition-smooth);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .testimonial-card::before {
@@ -2071,6 +2225,31 @@
             border-color: rgba(59, 130, 246, 0.2);
         }
 
+        .testimonial-image-wrapper {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto var(--space-2xl);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 4px solid rgba(59, 130, 246, 0.1);
+            position: relative;
+            z-index: 2;
+            aspect-ratio: 1 / 1;
+        }
+
+        .testimonial-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: all var(--transition-smooth);
+        }
+
+        .testimonial-card:hover .testimonial-image {
+            transform: scale(1.05);
+        }
+
         .testimonial-text {
             font-style: italic;
             color: var(--slate-700);
@@ -2079,29 +2258,16 @@
             font-size: 1.125rem;
             position: relative;
             z-index: 2;
+            flex-grow: 1;
         }
 
         .testimonial-author {
             display: flex;
-            align-items: center;
-            gap: var(--space-lg);
+            flex-direction: column;
+            gap: var(--space-sm);
             position: relative;
             z-index: 2;
-        }
-
-        .author-avatar {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-weight: 800;
-            font-size: 1.375rem;
-            border: 4px solid rgba(59, 130, 246, 0.1);
-            box-shadow: var(--shadow-lg);
+            text-align: center;
         }
 
         .author-info h4 {
@@ -2121,6 +2287,7 @@
             display: flex;
             gap: var(--space-xs);
             margin-top: var(--space-sm);
+            justify-content: center;
         }
 
         .star {
@@ -2131,6 +2298,61 @@
 
         .testimonial-card:hover .star {
             transform: scale(1.1);
+        }
+
+        /* Testimonials Responsive */
+        @media (max-width: 1366px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-card {
+                padding: var(--space-2xl);
+            }
+
+            .testimonial-image-wrapper {
+                max-width: 150px;
+                margin-bottom: var(--space-xl);
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
+            }
+
+            .author-info h4 {
+                font-size: 1.125rem;
+            }
+
+            .author-info p {
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .testimonials-grid {
+                gap: var(--space-xl);
+            }
+
+            .testimonial-card {
+                padding: var(--space-xl);
+            }
+
+            .testimonial-image-wrapper {
+                max-width: 120px;
+            }
+
+            .testimonial-text {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .star {
+                font-size: 1rem;
+            }
         }
 
         /* About Section */
@@ -3113,6 +3335,7 @@
             <li><a href="#inicio" class="nav-link">Inicio</a></li>
             <li><a href="#servicios" class="nav-link">Servicios</a></li>
             <li><a href="#telecomunicaciones" class="nav-link">Telecomunicaciones</a></li>
+            <li><a href="#maquinaria" class="nav-link">Maquinaria</a></li>
             <li><a href="#beneficios" class="nav-link">Beneficios</a></li>
             <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
             <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
@@ -3140,7 +3363,7 @@
                         Más de 5 años de experiencia
                     </div>
                     
-                    <h1 class="hero-title">Servicio Especializado de Elite en Lima</h1>
+                    <h1 class="hero-title">Servicio Especializado de Soluciones en Lima</h1>
                     <p class="hero-subtitle">Taller mecánico especializado - Rapidez, confianza y excelencia</p>
                     <p class="hero-description">
                         Más de 5 años brindando soluciones en rubros de telecomunicaciones, civil y minería. Técnicos certificados, tecnología avanzada y garantía total en cada servicio.
@@ -3162,20 +3385,20 @@
                     <img class="hero-tech-figure" src="assets/tecnico.png" alt="Especialista SVC Ingenieros" loading="lazy">
                     <div class="hero-metrics-orbit animate-scale" aria-label="Indicadores clave del servicio">
                         <div class="hero-metric-bubble" data-position="top-left">
-                            <span class="hero-metric-value" data-target="98">0</span>
+                            <span class="hero-metric-value" data-target="108">0</span>
                             <span class="hero-metric-label">Clientes satisfechos</span>
                         </div>
                         <div class="hero-metric-bubble" data-position="top-right">
                             <span class="hero-metric-value" data-target="82" data-suffix="%">0%</span>
-                            <span class="hero-metric-label">Nivel de NLS</span>
+                            <span class="hero-metric-label">Satisfacción del cliente</span>
                         </div>
                         <div class="hero-metric-bubble" data-position="middle-right">
-                            <span class="hero-metric-value" data-target="23">0</span>
+                            <span class="hero-metric-value" data-target="34">0</span>
                             <span class="hero-metric-label">Técnicos a nivel nacional</span>
                         </div>
                         <div class="hero-metric-bubble" data-position="middle-left">
-                            <span class="hero-metric-value">24/7</span>
-                            <span class="hero-metric-label">Soporte especializado</span>
+                            <span class="hero-metric-value" data-target="96" data-suffix="%">0%</span>
+                            <span class="hero-metric-label">Eficiencia de Trabajos</span>
                         </div>
                         <div class="hero-metric-bubble" data-position="bottom-left">
                             <span class="hero-metric-value" data-target="45604" data-format="comma">0</span>
@@ -3199,7 +3422,7 @@
                     <i class="fas fa-cogs"></i>
                     Servicios Profesionales
                 </div>
-                <h2 class="section-title">Soluciones Integrales</h2>
+                <h2 class="section-title">Soluciones integrales</h2>
                 <p class="section-description">
                     Ofrecemos una gama completa de servicios especializados con tecnología de vanguardia y técnicos altamente capacitados para garantizar el mejor rendimiento de tu operación.
                 </p>
@@ -3210,7 +3433,7 @@
                     <div class="service-icon">
                         <i class="fas fa-laptop-medical"></i>
                     </div>
-                    <h3>Diagnóstico Electrónico Vehícular</h3>
+                    <h3>Diagnóstico electrónico vehícular</h3>
                     <p>Utilizamos equipos de última generación para realizar diagnósticos precisos y detectar fallas complejas en sistemas electrónicos automotrices.</p>
                     <a href="#contacto" class="service-link">
                         Más información <i class="fas fa-arrow-right"></i>
@@ -3221,19 +3444,8 @@
                     <div class="service-icon">
                         <i class="fas fa-calendar-check"></i>
                     </div>
-                    <h3>Mantenimiento para Maquinaria Pesada</h3>
+                    <h3>Mantenimiento para maquinaria pesada</h3>
                     <p>Programas PM1, PM2, PM3 y PM4 diseñados para maximizar la vida útil de tu vehículo y prevenir costosas reparaciones futuras.</p>
-                    <a href="#contacto" class="service-link">
-                        Más información <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-wrench"></i>
-                    </div>
-                    <h3>Reparaciones Especializadas</h3>
-                    <p>Expertos en motor, transmisión, frenos, suspensión y sistemas de dirección con garantía extendida en todos los trabajos.</p>
                     <a href="#contacto" class="service-link">
                         Más información <i class="fas fa-arrow-right"></i>
                     </a>
@@ -3243,7 +3455,7 @@
                     <div class="service-icon">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3>Automatización de Procesos</h3>
+                    <h3>Automatización de procesos</h3>
                     <p>Diseñamos soluciones SaaS para optimizar flujos de trabajo, reducir errores operativos y aumentar la eficiencia empresarial.</p>
                     <a href="#contacto" class="service-link">
                         Más información <i class="fas fa-arrow-right"></i>
@@ -3260,17 +3472,6 @@
                         Más información <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
-                
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Taller Express</h3>
-                    <p>Servicios rápidos de mantenimiento básico, cambio de aceite, filtros y revisiones generales con tiempos optimizados.</p>
-                    <a href="#contacto" class="service-link">
-                        Más información <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
@@ -3283,7 +3484,7 @@
                     <i class="fas fa-broadcast-tower"></i>
                     Telecomunicaciones
                 </span>
-                <h2>Soluciones Integrales en Telecomunicaciones</h2>
+                <h2>Soluciones integrales en telecomunicaciones</h2>
                 <p>Implementamos tecnología de punta en infraestructura de telecomunicaciones, garantizando conectividad confiable y de alto rendimiento para tu empresa.</p>
             </div>
 
@@ -3347,6 +3548,103 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Machinery Section -->
+    <section id="maquinaria" class="machinery section">
+        <div class="container">
+            <div class="machinery-header animate-on-scroll">
+                <span class="section-badge">
+                    <i class="fas fa-hard-hat"></i>
+                    Maquinaria Pesada
+                </span>
+                <h2>Soluciones integrales para maquinaria pesada</h2>
+                <p>Servicios especializados de mantenimiento, diagnóstico y capacitación para optimizar el rendimiento y prolongar la vida útil de tu maquinaria.</p>
+            </div>
+
+            <div class="machinery-content">
+                <div class="machinery-info animate-fade-left">
+                    <ul class="machinery-services-list">
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Mantenimientos Programados</h4>
+                                <p>Ejecución de mantenimientos PM1, PM2, PM3 y PM4</p>
+                            </div>
+                        </li>
+                        
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Inspecciones Técnicas</h4>
+                                <p>Ejecución de Inspecciones AT1 y AT2</p>
+                            </div>
+                        </li>
+                        
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-wrench"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Correctivos Especializados</h4>
+                                <p>Ejecución de correctivos mecánicos y electrónicos</p>
+                            </div>
+                        </li>
+                        
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-oil-can"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Análisis de Lubricación</h4>
+                                <p>Análisis de lubricación y fluidos para optimización de equipos</p>
+                            </div>
+                        </li>
+                        
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Diagnóstico de Motores</h4>
+                                <p>Evaluación y diagnóstico de motores eléctricos</p>
+                            </div>
+                        </li>
+                        
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Optimización de Costos</h4>
+                                <p>Estudios de productividad y optimización de costos</p>
+                            </div>
+                        </li>
+                        
+                        <li class="machinery-service-item">
+                            <div class="machinery-service-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="machinery-service-content">
+                                <h4>Capacitación Especializada</h4>
+                                <p>Capacitación en gestión del mantenimiento y operación de maquinaria pesada</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="machinery-video-wrapper animate-fade-right">
+                    <video class="machinery-video" controls controlsList="nodownload" preload="metadata">
+                        <source src="assets/Video Maquinaria.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
                 </div>
             </div>
         </div>
@@ -3440,11 +3738,13 @@
             
             <div class="testimonials-grid">
                 <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-image-wrapper">
+                        <img src="assets/Tecnico SVC Mecanico.png" alt="Técnico SVC revisando camión" class="testimonial-image" loading="lazy">
+                    </div>
                     <p class="testimonial-text">
-                        "Increíble servicio especializado. Diagnosticaron y repararon mi camión en tiempo record. El equipo es muy profesional y los precios son justos. Definitivamente los recomiendo al 100%."
+                        "Increíble servicio especializado. Diagnosticaron y repararon mi camión en tiempo récord. El equipo es muy profesional y los precios son justos. Definitivamente los recomiendo al 100%."
                     </p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">JM</div>
                         <div class="author-info">
                             <h4>Juan Carlos Martínez</h4>
                             <p>Empresario de Transporte</p>
@@ -3460,11 +3760,13 @@
                 </div>
                 
                 <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-image-wrapper">
+                        <img src="assets/SVC Tecnico bateria.jpg" alt="Técnica SVC realizando diagnóstico electrónico" class="testimonial-image" loading="lazy">
+                    </div>
                     <p class="testimonial-text">
                         "El diagnóstico electrónico fue extremadamente preciso. Identificaron el problema que otros talleres no pudieron detectar. Trabajo de primera calidad y con garantía completa."
                     </p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">CR</div>
                         <div class="author-info">
                             <h4>Carmen Rodríguez</h4>
                             <p>Directora Comercial</p>
@@ -3480,14 +3782,38 @@
                 </div>
                 
                 <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-image-wrapper">
+                        <img src="assets/SVC Tecnico Maquinaria pesada.jpg" alt="Técnico SVC manteniendo maquinaria pesada" class="testimonial-image" loading="lazy">
+                    </div>
                     <p class="testimonial-text">
                         "Excelente mantenimiento de maquinaria pesada. Mi equipo funciona como nuevo después del servicio PM3. Técnicos especializados y atención personalizada excepcional."
                     </p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">LG</div>
                         <div class="author-info">
                             <h4>Luis García Mendoza</h4>
                             <p>Ingeniero de Construcción</p>
+                            <div class="rating">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-image-wrapper">
+                        <img src="assets/SVC Tecnico Telecomunicaciones.jpg" alt="Técnico SVC instalando fibra óptica" class="testimonial-image" loading="lazy">
+                    </div>
+                    <p class="testimonial-text">
+                        "La instalación de fibra óptica y sistemas de telefonía IP en nuestra municipalidad fue impecable. Excelente servicio técnico, trabajo ordenado y cumplimiento de plazos garantizado."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Ana María Fernández</h4>
+                            <p>Alcaldesa Municipal</p>
                             <div class="rating">
                                 <i class="fas fa-star star"></i>
                                 <i class="fas fa-star star"></i>
@@ -3557,7 +3883,7 @@
                             <div class="about-stat-icon">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <span class="about-stat-number">500+</span>
+                            <span class="about-stat-number">100+</span>
                             <span class="about-stat-label">Clientes Satisfechos</span>
                         </div>
                         
@@ -3573,7 +3899,7 @@
                             <div class="about-stat-icon">
                                 <i class="fas fa-tools"></i>
                             </div>
-                            <span class="about-stat-number">15+</span>
+                            <span class="about-stat-number">34</span>
                             <span class="about-stat-label">Técnicos Especializados</span>
                         </div>
                         
@@ -3581,7 +3907,7 @@
                             <div class="about-stat-icon">
                                 <i class="fas fa-thumbs-up"></i>
                             </div>
-                            <span class="about-stat-number">99%</span>
+                            <span class="about-stat-number">82%</span>
                             <span class="about-stat-label">Tasa de Satisfacción</span>
                         </div>
                     </div>
@@ -3598,9 +3924,9 @@
                     <i class="fas fa-map-marker-alt"></i>
                     Contacto Directo
                 </div>
-                <h2 class="section-title">Conecta Con Nuestros Expertos</h2>
+                <h2 class="section-title">Conecta con nuestros expertos</h2>
                 <p class="section-description">
-                    Estamos estratégicamente ubicados en Huancayo, Lima, Juliaca, Arequipa, Cajamarca, Lambayeque y Oxapampa listos para brindarte asistencia técnica inmediata. Contáctanos por tu canal preferido.
+                    Estamos estratégicamente ubicados en Huancayo, Lima, Juliaca, Arequipa, Cajamarca, Cusco , Lambayeque y Oxapampa listos para brindarte asistencia técnica inmediata. Contáctanos por tu canal preferido.
                 </p>
             </div>
             
@@ -3614,7 +3940,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Nuestra Ubicación</h4>
-                            <p>COMAS, Lima, Perú<br>Zona estratégica con fácil acceso</p>
+                            <p>Av. Universitaria 8533, Comas, Lima Metropolitana, Lima<br>Zona estratégica con fácil acceso</p>
                         </div>
                     </div>
                     
