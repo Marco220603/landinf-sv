@@ -117,7 +117,7 @@
         .hero-tech-figure {
             position: relative;
             z-index: 3;
-            width: min(68vw, 820px); /* grow as much as possible on wide screens */
+            width: min(52vw, 620px); /* reducido para mejor nitidez */
             max-width: 100%;
             pointer-events: none;
             filter: drop-shadow(0 40px 80px rgba(15, 23, 42, 0.42)); /* stronger soft shadow to emulate depth */
@@ -975,6 +975,7 @@
             background-clip: text;
             animation: gradientShift 3s ease-in-out infinite;
             line-height: 1;
+            white-space: nowrap;
         }
 
         .logo-subtitle {
@@ -1132,7 +1133,7 @@
             font-family: var(--font-secondary);
             font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 900;
-            line-height: 0.95;
+            line-height: 1.15;
             margin-bottom: var(--space-lg);
             background: var(--gradient-primary);
             background-size: 200% 200%;
@@ -1140,6 +1141,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: gradientShift 4s ease-in-out infinite;
+            padding-bottom: 0.1em;
         }
 
         .hero-subtitle {
@@ -1302,8 +1304,20 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: var(--space-2xl);
+        }
+        
+        @media (max-width: 1200px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .service-card {
@@ -1443,6 +1457,83 @@
             background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
             position: relative;
             overflow: hidden;
+        }
+        
+        /* Carousel Container */
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--space-3xl);
+            width: 100%;
+        }
+        
+        .carousel-container {
+            display: flex;
+            gap: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+            width: 100%;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            width: 100%;
+            flex-shrink: 0;
+            flex-grow: 0;
+            box-sizing: border-box;
+        }
+        
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-top: var(--space-2xl);
+        }
+        
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.2);
+            border: 2px solid var(--accent-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-size: 1.25rem;
+        }
+        
+        .carousel-btn:hover {
+            background: var(--accent-blue);
+            transform: scale(1.1);
+        }
+        
+        .carousel-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+        
+        .carousel-indicator.active {
+            background: var(--accent-blue);
+            width: 30px;
+            border-radius: 6px;
         }
 
         .telecommunications::before {
@@ -1995,8 +2086,22 @@
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: var(--space-3xl);
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-2xl);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 1200px) {
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .benefit-item {
@@ -2187,11 +2292,52 @@
         .testimonials {
             background: var(--slate-50);
         }
+        
+        .testimonials-carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
 
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-2xl);
+            display: flex;
+            gap: 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+            width: 100%;
+        }
+        
+        .testimonial-card {
+            min-width: 100%;
+            width: 100%;
+            flex-shrink: 0;
+            flex-grow: 0;
+            box-sizing: border-box;
+        }
+        
+        .testimonials .carousel-controls {
+            margin-top: var(--space-3xl);
+        }
+        
+        .testimonials .carousel-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+        
+        .testimonials .carousel-btn:hover {
+            background: var(--accent-blue);
+            color: var(--white);
+        }
+        
+        .testimonials .carousel-indicator {
+            background: rgba(59, 130, 246, 0.3);
+        }
+        
+        .testimonials .carousel-indicator.active {
+            background: var(--accent-blue);
         }
 
         .testimonial-card {
@@ -2227,15 +2373,16 @@
 
         .testimonial-image-wrapper {
             width: 100%;
-            max-width: 200px;
+            max-width: 320px;
             margin: 0 auto var(--space-2xl);
             border-radius: var(--radius-2xl);
             overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            border: 4px solid rgba(59, 130, 246, 0.1);
+            box-shadow: var(--shadow-xl);
+            border: 4px solid rgba(59, 130, 246, 0.15);
             position: relative;
             z-index: 2;
             aspect-ratio: 1 / 1;
+            transition: all var(--transition-normal);
         }
 
         .testimonial-image {
@@ -2246,6 +2393,12 @@
             transition: all var(--transition-smooth);
         }
 
+        .testimonial-card:hover .testimonial-image-wrapper {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
         .testimonial-card:hover .testimonial-image {
             transform: scale(1.05);
         }
@@ -2302,10 +2455,8 @@
 
         /* Testimonials Responsive */
         @media (max-width: 1366px) {
-            .testimonials-grid {
-                grid-template-columns: 1fr;
+            .testimonials-carousel-wrapper {
                 max-width: 600px;
-                margin: 0 auto;
             }
         }
 
@@ -2315,7 +2466,7 @@
             }
 
             .testimonial-image-wrapper {
-                max-width: 150px;
+                max-width: 240px;
                 margin-bottom: var(--space-xl);
             }
 
@@ -2333,8 +2484,8 @@
         }
 
         @media (max-width: 480px) {
-            .testimonials-grid {
-                gap: var(--space-xl);
+            .testimonials-carousel-wrapper {
+                max-width: 100%;
             }
 
             .testimonial-card {
@@ -2342,7 +2493,7 @@
             }
 
             .testimonial-image-wrapper {
-                max-width: 120px;
+                max-width: 200px;
             }
 
             .testimonial-text {
@@ -3363,10 +3514,10 @@
                         Más de 5 años de experiencia
                     </div>
                     
-                    <h1 class="hero-title">Servicio Especializado de Soluciones en Lima</h1>
-                    <p class="hero-subtitle">Taller mecánico especializado - Rapidez, confianza y excelencia</p>
+                    <h1 class="hero-title">Soluciones Integrales en Ingeniería</h1>
+                    <p class="hero-subtitle">Rapidez, confianza y excelencia</p>
                     <p class="hero-description">
-                        Más de 5 años brindando soluciones en rubros de telecomunicaciones, civil y minería. Técnicos certificados, tecnología avanzada y garantía total en cada servicio.
+                        Más de 5 años brindando soluciones en rubros de alta y baja complejidad como en rubros mineros, civil y telecomunicaciones a través de técnicos certificados, tecnología avanzada y garantía total en cada servicio.
                     </p>
                     
                     <div class="hero-buttons">
@@ -3453,6 +3604,28 @@
                 
                 <div class="service-card animate-on-scroll">
                     <div class="service-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>Obras civiles</h3>
+                    <p>Construcción y adecuación de infraestructura, obras de concreto, estructuras metálicas, vías, albañilería y remodelaciones adaptadas a cada necesidad.</p>
+                    <a href="#contacto" class="service-link">
+                        Más información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Automatización industrial</h3>
+                    <p>Proyectos BT/MT, PLC/HMI/SCADA, instrumentación industrial, medición de energía, sistemas UPS, iluminación y soluciones energéticas.</p>
+                    <a href="#contacto" class="service-link">
+                        Más información <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
                         <i class="fas fa-robot"></i>
                     </div>
                     <h3>Automatización de procesos</h3>
@@ -3467,7 +3640,7 @@
                         <i class="fas fa-signal"></i>
                     </div>
                     <h3>Telecomunicaciones</h3>
-                    <p>Servicios de instalaciones y mantenimientos de cableados de fibra óptica y creación de troncales</p>
+                    <p>Servicios de instalaciones y mantenimientos de cableados de fibra óptica y creación de troncales.</p>
                     <a href="#contacto" class="service-link">
                         Más información <i class="fas fa-arrow-right"></i>
                     </a>
@@ -3476,175 +3649,194 @@
         </div>
     </section>
 
-    <!-- Telecommunications Section -->
+    <!-- Telecommunications and Machinery Carousel Section -->
     <section id="telecomunicaciones" class="telecommunications section">
         <div class="container">
-            <div class="telecom-header animate-on-scroll">
-                <span class="section-badge">
-                    <i class="fas fa-broadcast-tower"></i>
-                    Telecomunicaciones
-                </span>
-                <h2>Soluciones integrales en telecomunicaciones</h2>
-                <p>Implementamos tecnología de punta en infraestructura de telecomunicaciones, garantizando conectividad confiable y de alto rendimiento para tu empresa.</p>
-            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel-container" id="servicesCarousel">
+                    <!-- Slide 1: Telecomunicaciones -->
+                    <div class="carousel-slide">
+                        <div class="telecom-header animate-on-scroll">
+                            <span class="section-badge">
+                                <i class="fas fa-broadcast-tower"></i>
+                                Telecomunicaciones
+                            </span>
+                            <h2>Soluciones integrales en telecomunicaciones</h2>
+                            <p>Implementamos tecnología de punta en infraestructura de telecomunicaciones, garantizando conectividad confiable y de alto rendimiento para tu empresa.</p>
+                        </div>
 
-            <div class="telecom-content">
-                <div class="telecom-video-wrapper animate-fade-left">
-                    <video class="telecom-video" controls controlsList="nodownload" preload="metadata">
-                        <source src="assets/Vídeo sin título ‐ Hecho con Clipchamp (2).mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+                        <div class="telecom-content">
+                            <div class="telecom-video-wrapper animate-fade-left">
+                                <video class="telecom-video" controls controlsList="nodownload" preload="metadata">
+                                    <source src="assets/Vídeo sin título ‐ Hecho con Clipchamp (2).mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+
+                            <div class="telecom-info animate-fade-right">
+                                <ul class="telecom-services-list">
+                                    <li class="telecom-service-item">
+                                        <div class="telecom-service-icon">
+                                            <i class="fas fa-network-wired"></i>
+                                        </div>
+                                        <div class="telecom-service-content">
+                                            <h4>Instalación HFC y FTTH</h4>
+                                            <p>Servicio de instalación de altas y migraciones a través de HFC y FTTH</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="telecom-service-item">
+                                        <div class="telecom-service-icon">
+                                            <i class="fas fa-tools"></i>
+                                        </div>
+                                        <div class="telecom-service-content">
+                                            <h4>Mantenimiento y Postventa</h4>
+                                            <p>Servicios de mantenimientos y postventa de HFC y FTTH</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="telecom-service-item">
+                                        <div class="telecom-service-icon">
+                                            <i class="fas fa-project-diagram"></i>
+                                        </div>
+                                        <div class="telecom-service-content">
+                                            <h4>Cableado Estructurado</h4>
+                                            <p>Tendido e instalación de cableado estructurado y fibra óptica</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="telecom-service-item">
+                                        <div class="telecom-service-icon">
+                                            <i class="fas fa-phone-alt"></i>
+                                        </div>
+                                        <div class="telecom-service-content">
+                                            <h4>Telefonía Especializada</h4>
+                                            <p>Servicio de telefonía pública para establecimientos penitenciarios</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="telecom-service-item">
+                                        <div class="telecom-service-icon">
+                                            <i class="fas fa-server"></i>
+                                        </div>
+                                        <div class="telecom-service-content">
+                                            <h4>Telefonía IP y Centralitas</h4>
+                                            <p>Instalación y configuración de sistemas de telefonía IP y centralitas</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Maquinaria -->
+                    <div class="carousel-slide" id="maquinaria">
+                        <div class="machinery-header animate-on-scroll">
+                            <span class="section-badge">
+                                <i class="fas fa-hard-hat"></i>
+                                Maquinaria Pesada
+                            </span>
+                            <h2>Soluciones integrales para maquinaria pesada</h2>
+                            <p>Servicios especializados de mantenimiento, diagnóstico y capacitación para optimizar el rendimiento y prolongar la vida útil de tu maquinaria.</p>
+                        </div>
+
+                        <div class="machinery-content">
+                            <div class="machinery-info animate-fade-left">
+                                <ul class="machinery-services-list">
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-cogs"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Mantenimientos Programados</h4>
+                                            <p>Ejecución de mantenimientos PM1, PM2, PM3 y PM4</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-clipboard-check"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Inspecciones Técnicas</h4>
+                                            <p>Ejecución de Inspecciones AT1 y AT2</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-wrench"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Correctivos Especializados</h4>
+                                            <p>Ejecución de correctivos mecánicos y electrónicos</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-oil-can"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Análisis de Lubricación</h4>
+                                            <p>Análisis de lubricación y fluidos para optimización de equipos</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-bolt"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Diagnóstico de Motores</h4>
+                                            <p>Evaluación y diagnóstico de motores eléctricos</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Optimización de Costos</h4>
+                                            <p>Estudios de productividad y optimización de costos</p>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="machinery-service-item">
+                                        <div class="machinery-service-icon">
+                                            <i class="fas fa-chalkboard-teacher"></i>
+                                        </div>
+                                        <div class="machinery-service-content">
+                                            <h4>Capacitación Especializada</h4>
+                                            <p>Capacitación en gestión del mantenimiento y operación de maquinaria pesada</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="machinery-video-wrapper animate-fade-right">
+                                <video class="machinery-video" controls controlsList="nodownload" preload="metadata">
+                                    <source src="assets/Video Maquinaria.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="telecom-info animate-fade-right">
-                    <ul class="telecom-services-list">
-                        <li class="telecom-service-item">
-                            <div class="telecom-service-icon">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <div class="telecom-service-content">
-                                <h4>Instalación HFC y FTTH</h4>
-                                <p>Servicio de instalación de altas y migraciones a través de HFC y FTTH</p>
-                            </div>
-                        </li>
-                        
-                        <li class="telecom-service-item">
-                            <div class="telecom-service-icon">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <div class="telecom-service-content">
-                                <h4>Mantenimiento y Postventa</h4>
-                                <p>Servicios de mantenimientos y postventa de HFC y FTTH</p>
-                            </div>
-                        </li>
-                        
-                        <li class="telecom-service-item">
-                            <div class="telecom-service-icon">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <div class="telecom-service-content">
-                                <h4>Cableado Estructurado</h4>
-                                <p>Tendido e instalación de cableado estructurado y fibra óptica</p>
-                            </div>
-                        </li>
-                        
-                        <li class="telecom-service-item">
-                            <div class="telecom-service-icon">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div class="telecom-service-content">
-                                <h4>Telefonía Especializada</h4>
-                                <p>Servicio de telefonía pública para establecimientos penitenciarios</p>
-                            </div>
-                        </li>
-                        
-                        <li class="telecom-service-item">
-                            <div class="telecom-service-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <div class="telecom-service-content">
-                                <h4>Telefonía IP y Centralitas</h4>
-                                <p>Instalación y configuración de sistemas de telefonía IP y centralitas</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Machinery Section -->
-    <section id="maquinaria" class="machinery section">
-        <div class="container">
-            <div class="machinery-header animate-on-scroll">
-                <span class="section-badge">
-                    <i class="fas fa-hard-hat"></i>
-                    Maquinaria Pesada
-                </span>
-                <h2>Soluciones integrales para maquinaria pesada</h2>
-                <p>Servicios especializados de mantenimiento, diagnóstico y capacitación para optimizar el rendimiento y prolongar la vida útil de tu maquinaria.</p>
-            </div>
-
-            <div class="machinery-content">
-                <div class="machinery-info animate-fade-left">
-                    <ul class="machinery-services-list">
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Mantenimientos Programados</h4>
-                                <p>Ejecución de mantenimientos PM1, PM2, PM3 y PM4</p>
-                            </div>
-                        </li>
-                        
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Inspecciones Técnicas</h4>
-                                <p>Ejecución de Inspecciones AT1 y AT2</p>
-                            </div>
-                        </li>
-                        
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-wrench"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Correctivos Especializados</h4>
-                                <p>Ejecución de correctivos mecánicos y electrónicos</p>
-                            </div>
-                        </li>
-                        
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-oil-can"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Análisis de Lubricación</h4>
-                                <p>Análisis de lubricación y fluidos para optimización de equipos</p>
-                            </div>
-                        </li>
-                        
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Diagnóstico de Motores</h4>
-                                <p>Evaluación y diagnóstico de motores eléctricos</p>
-                            </div>
-                        </li>
-                        
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Optimización de Costos</h4>
-                                <p>Estudios de productividad y optimización de costos</p>
-                            </div>
-                        </li>
-                        
-                        <li class="machinery-service-item">
-                            <div class="machinery-service-icon">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                            </div>
-                            <div class="machinery-service-content">
-                                <h4>Capacitación Especializada</h4>
-                                <p>Capacitación en gestión del mantenimiento y operación de maquinaria pesada</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="machinery-video-wrapper animate-fade-right">
-                    <video class="machinery-video" controls controlsList="nodownload" preload="metadata">
-                        <source src="assets/Video Maquinaria.mp4" type="video/mp4">
-                        Tu navegador no soporta el elemento de video.
-                    </video>
+                <!-- Carousel Controls -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn" aria-label="Anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-indicators">
+                        <span class="carousel-indicator active" data-slide="0"></span>
+                        <span class="carousel-indicator" data-slide="1"></span>
+                    </div>
+                    <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -3658,7 +3850,7 @@
                     <i class="fas fa-award"></i>
                     Ventajas Competitivas
                 </div>
-                <h2 class="section-title">¿Por Qué Elegir SVC Ingenieros?</h2>
+                <h2 class="section-title">¿Por qué elegir SVC Ingenieros?</h2>
                 <p class="section-description">
                     Nos destacamos por nuestro compromiso inquebrantable con la excelencia, la innovación tecnológica y la satisfacción total del cliente.
                 </p>
@@ -3704,7 +3896,7 @@
     <section class="cta section">
         <div class="container">
             <div class="cta-content animate-on-scroll">
-                <h2 class="cta-title">¿Necesitas Asistencia Técnica Inmediata?</h2>
+                <h2 class="cta-title">¿Necesitas sistencia técnica inmediata?</h2>
                 <p class="cta-description">
                     No esperes que un pequeño problema se convierta en una costosa reparación. Nuestros expertos están listos para ayudarte con diagnósticos gratuitos y soluciones inmediatas.
                 </p>
@@ -3736,7 +3928,8 @@
                 </p>
             </div>
             
-            <div class="testimonials-grid">
+            <div class="testimonials-carousel-wrapper">
+                <div class="testimonials-grid" id="testimonialsCarousel">
                 <div class="testimonial-card animate-on-scroll">
                     <div class="testimonial-image-wrapper">
                         <img src="assets/Tecnico SVC Mecanico.png" alt="Técnico SVC revisando camión" class="testimonial-image" loading="lazy">
@@ -3825,6 +4018,23 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Testimonials Carousel Controls -->
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prevTestimonialBtn" aria-label="Testimonio anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-indicators">
+                    <span class="carousel-indicator active" data-testimonial="0"></span>
+                    <span class="carousel-indicator" data-testimonial="1"></span>
+                    <span class="carousel-indicator" data-testimonial="2"></span>
+                    <span class="carousel-indicator" data-testimonial="3"></span>
+                </div>
+                <button class="carousel-btn" id="nextTestimonialBtn" aria-label="Siguiente testimonio">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -4136,6 +4346,8 @@
             initializeCounters();
             initializeContactForm();
             initializePerformanceOptimizations();
+            initializeServicesCarousel();
+            initializeTestimonialsCarousel();
         });
 
         // Loading animation
@@ -4487,6 +4699,108 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
+
+        // Services Carousel (Telecomunicaciones y Maquinaria)
+        function initializeServicesCarousel() {
+            const carousel = document.getElementById('servicesCarousel');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicators = document.querySelectorAll('.carousel-indicator[data-slide]');
+            let currentSlide = 0;
+            const totalSlides = 2;
+
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlide);
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateCarousel();
+                }
+            });
+
+            indicators.forEach((indicator) => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = parseInt(indicator.dataset.slide);
+                    updateCarousel();
+                });
+            });
+
+            updateCarousel();
+        }
+
+        // Testimonials Carousel
+        function initializeTestimonialsCarousel() {
+            const carousel = document.getElementById('testimonialsCarousel');
+            const prevBtn = document.getElementById('prevTestimonialBtn');
+            const nextBtn = document.getElementById('nextTestimonialBtn');
+            const indicators = document.querySelectorAll('.carousel-indicator[data-testimonial]');
+            let currentSlide = 0;
+            const totalSlides = 4;
+
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlide);
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateCarousel();
+                }
+            });
+
+            indicators.forEach((indicator) => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = parseInt(indicator.dataset.testimonial);
+                    updateCarousel();
+                });
+            });
+
+            // Auto-advance every 5 seconds
+            setInterval(() => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                } else {
+                    currentSlide = 0;
+                }
+                updateCarousel();
+            }, 5000);
+
+            updateCarousel();
+        }
 
         // Console branding
         console.log('%c🔧 SVC Ingenieros S.A.C. - Landing Page Elite', 'color: #3B82F6; font-size: 16px; font-weight: bold;');
