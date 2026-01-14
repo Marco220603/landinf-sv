@@ -260,6 +260,73 @@
             background-size: 200% 100%;
             animation: shimmer 3s linear infinite;
         }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(14, 165, 233, 0.2);
+            border-top-color: #0ea5e9;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            color: white;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            z-index: 100;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="font-body text-slate-600 antialiased bg-surface-off selection:bg-secondary selection:text-white">
@@ -287,12 +354,60 @@
                         SOLICITE UNA COTIZACIÓN
                     </a>
 </div>
-<button class="lg:hidden p-2 text-white">
+<button class="lg:hidden p-2 text-white" id="mobileMenuBtn" aria-label="Abrir menú">
 <span class="material-symbols-outlined text-3xl">menu</span>
 </button>
 </div>
 </div>
 </header>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Cargando...</p>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- Mobile Menu -->
+<nav class="mobile-menu" id="mobileMenu">
+    <div class="p-6">
+        <div class="flex items-center justify-between mb-8">
+            <div class="h-8">
+                <img src="src/logo/MQ - LOGO BLANCO SIN FONDO.png" alt="MaqPro Logo" class="h-full w-auto">
+            </div>
+            <button class="p-2 text-white hover:text-secondary transition-colors" id="closeMobileMenuBtn" aria-label="Cerrar menú">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
+        <div class="flex flex-col gap-2">
+            <a class="mobile-nav-link text-lg font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition-all py-4 px-4 rounded-xl flex items-center gap-3" href="#inicio">
+                <span class="material-symbols-outlined text-secondary">home</span>
+                INICIO
+            </a>
+            <a class="mobile-nav-link text-lg font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition-all py-4 px-4 rounded-xl flex items-center gap-3" href="#planes">
+                <span class="material-symbols-outlined text-secondary">assignment</span>
+                PLANES
+            </a>
+            <a class="mobile-nav-link text-lg font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition-all py-4 px-4 rounded-xl flex items-center gap-3" href="#servicio">
+                <span class="material-symbols-outlined text-secondary">build</span>
+                SERVICIO
+            </a>
+            <a class="mobile-nav-link text-lg font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition-all py-4 px-4 rounded-xl flex items-center gap-3" href="#contacto">
+                <span class="material-symbols-outlined text-secondary">mail</span>
+                CONTACTO
+            </a>
+        </div>
+        <div class="mt-8 pt-8 border-t border-white/10">
+            <a class="mobile-nav-link w-full bg-secondary hover:bg-sky-600 text-white py-4 px-6 rounded-xl font-bold text-center transition-all shadow-lg flex items-center justify-center gap-2" href="#contacto">
+                <span class="material-symbols-outlined">request_quote</span>
+                SOLICITE UNA COTIZACIÓN
+            </a>
+        </div>
+    </div>
+</nav>
+
 <section class="relative pt-48 pb-20 lg:pt-56 lg:pb-32 overflow-hidden bg-slate-900" id="inicio">
 <div class="absolute inset-0 z-0">
 <img alt="Técnicos de MaqPro junto a maquinaria pesada en mina" class="w-full h-full object-cover object-center" src="src/Gemini_Generated_Image_t8wlidt8wlidt8wl (1).png"/>
@@ -1320,7 +1435,7 @@ Brindamos servicios principalmente en Lima y principales zonas operativas del pa
 </div>
 </div>
 <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-<p>© 2024 MaqPro S.A.C. RUC: 20607694360.</p>
+<p>© 2026 MaqPro S.A.C. RUC: 20607694360.</p>
 <p class="opacity-50">Diseñado para la industria peruana.</p>
 </div>
 </div>
@@ -2267,15 +2382,60 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Navegación con recarga de página
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const hash = link.getAttribute('href');
-        // Construir URL completa con hash y recargar
+// Loading Overlay
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+function showLoading() {
+    loadingOverlay.classList.add('active');
+}
+
+function hideLoading() {
+    loadingOverlay.classList.remove('active');
+}
+
+// Mobile Menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+const closeMobileMenuBtn = document.getElementById('closeMobileMenuBtn');
+
+function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenuOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenuOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+mobileMenuBtn.addEventListener('click', openMobileMenu);
+closeMobileMenuBtn.addEventListener('click', closeMobileMenu);
+mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+// Navegación con animación de carga
+function handleNavClick(e) {
+    e.preventDefault();
+    const hash = this.getAttribute('href');
+    
+    // Cerrar menú móvil si está abierto
+    closeMobileMenu();
+    
+    // Mostrar loading
+    showLoading();
+    
+    // Esperar un momento para que se vea la animación y luego recargar
+    setTimeout(() => {
         window.location.href = window.location.pathname + hash;
         window.location.reload();
-    });
+    }, 500);
+}
+
+// Aplicar a todos los enlaces de navegación (desktop y móvil)
+document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+    link.addEventListener('click', handleNavClick);
 });
 
 // Al cargar la página, hacer scroll a la sección si hay hash
@@ -2287,6 +2447,13 @@ if (window.location.hash) {
         }
     }, 100);
 }
+
+// Cerrar menú móvil con ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        closeMobileMenu();
+    }
+});
 </script>
 
 <!-- Script de Búsqueda -->
