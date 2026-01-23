@@ -327,6 +327,29 @@
             opacity: 1;
             visibility: visible;
         }
+        
+        /* Validation Error Styles */
+        .input-error {
+            border-color: #ef4444 !important;
+            background-color: #fef2f2 !important;
+        }
+        .input-error:focus {
+            ring-color: #ef4444 !important;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .error-message .material-symbols-outlined {
+            font-size: 0.875rem;
+        }
+        .input-success {
+            border-color: #22c55e !important;
+        }
     </style>
 </head>
 <body class="font-body text-slate-600 antialiased bg-surface-off selection:bg-secondary selection:text-white">
@@ -458,7 +481,7 @@
 <div class="flex flex-col items-center justify-center text-center py-12 px-4 group/metric hover:bg-white/[0.02] transition-colors relative">
 <h3 class="text-3xl lg:text-4xl font-display font-black text-white tracking-tighter mb-2 drop-shadow-lg">45,604</h3>
 <span class="text-secondary font-bold text-xs uppercase tracking-[0.2em] mb-1">Horas</span>
-<p class="text-slate-400 text-[11px] font-medium leading-tight">Sin antecedentes</p>
+<p class="text-slate-400 text-[11px] font-medium leading-tight">Sin accidentes</p>
 </div>
 </div>
 </div>
@@ -1435,7 +1458,7 @@ Brindamos servicios principalmente en Lima y principales zonas operativas del pa
 </div>
 </div>
 <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-<p>© 2026 MaqPro S.A.C. RUC: 20607694360.</p>
+<p>© 2026 SVC INGENIEROS S.A.C. RUC: 20607494283</p>
 <p class="opacity-50">Diseñado para la industria peruana.</p>
 </div>
 </div>
@@ -1742,7 +1765,7 @@ Brindamos servicios principalmente en Lima y principales zonas operativas del pa
                         </div>
                     </div>
                     <div class="group relative overflow-hidden rounded-xl shadow-lg">
-                        <img src="src/maqPRO_avanzado_imagen2.jpeg" alt="Proyecto MAQPRO Avanzado 2" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105">
+                        <img src="src/maqPRO_avanzado_imagen2.png" alt="Proyecto MAQPRO Avanzado 2" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-4">
                             <div>
                                 <p class="text-white font-bold text-sm">Análisis de Aceite</p>
@@ -2454,6 +2477,247 @@ document.addEventListener('keydown', (e) => {
         closeMobileMenu();
     }
 });
+
+// ===== VALIDACIONES DE FORMULARIOS =====
+
+// Configuración de validación de teléfonos por país
+const phoneValidationRules = {
+    '+51': { startsWith: ['9'], length: 9, country: 'Perú' },           // Perú: empieza con 9, 9 dígitos
+    '+1':  { startsWith: ['2','3','4','5','6','7','8','9'], length: 10, country: 'EE.UU.' }, // USA: 10 dígitos
+    '+52': { startsWith: ['1','2','3','4','5','6','7','8','9'], length: 10, country: 'México' }, // México: 10 dígitos
+    '+54': { startsWith: ['1','2','3'], length: 10, country: 'Argentina' }, // Argentina: empieza con 1,2,3
+    '+55': { startsWith: ['1','2','3','4','5','6','7','8','9'], length: 11, country: 'Brasil' }, // Brasil: 11 dígitos
+    '+56': { startsWith: ['9'], length: 9, country: 'Chile' },          // Chile: empieza con 9, 9 dígitos
+    '+57': { startsWith: ['3'], length: 10, country: 'Colombia' },      // Colombia: empieza con 3, 10 dígitos
+    '+58': { startsWith: ['4'], length: 10, country: 'Venezuela' },     // Venezuela: empieza con 4, 10 dígitos
+    '+593': { startsWith: ['9'], length: 9, country: 'Ecuador' },       // Ecuador: empieza con 9, 9 dígitos
+    '+591': { startsWith: ['6','7'], length: 8, country: 'Bolivia' },   // Bolivia: empieza con 6 o 7, 8 dígitos
+    '+34': { startsWith: ['6','7'], length: 9, country: 'España' }      // España: empieza con 6 o 7, 9 dígitos
+};
+
+// Función para validar email
+function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+// Función para validar teléfono según país
+function validatePhone(phone, countryCode) {
+    // Limpiar el número de espacios y caracteres especiales
+    const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
+    
+    const rules = phoneValidationRules[countryCode];
+    if (!rules) return { valid: true, message: '' }; // Si no hay regla, aceptar
+    
+    // Verificar longitud
+    if (cleanPhone.length !== rules.length) {
+        return { 
+            valid: false, 
+            message: `El número debe tener ${rules.length} dígitos para ${rules.country}` 
+        };
+    }
+    
+    // Verificar que empiece con el dígito correcto
+    const firstDigit = cleanPhone.charAt(0);
+    if (!rules.startsWith.includes(firstDigit)) {
+        return { 
+            valid: false, 
+            message: `En ${rules.country}, el celular debe empezar con ${rules.startsWith.join(' o ')}` 
+        };
+    }
+    
+    // Verificar que solo contenga números
+    if (!/^\d+$/.test(cleanPhone)) {
+        return { valid: false, message: 'Solo se permiten números' };
+    }
+    
+    return { valid: true, message: '' };
+}
+
+// Función para mostrar error
+function showFieldError(input, message) {
+    // Limpiar error anterior
+    clearFieldError(input);
+    
+    input.classList.add('input-error');
+    input.classList.remove('input-success');
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.innerHTML = `<span class="material-symbols-outlined">error</span>${message}`;
+    
+    // Para el teléfono, insertar después del contenedor flex
+    // Para el email y otros, insertar después del input dentro de su div padre
+    if (input.closest('.flex.gap-2')) {
+        // Es el campo de teléfono (está dentro de un flex con el selector de país)
+        const flexContainer = input.closest('.flex.gap-2');
+        flexContainer.insertAdjacentElement('afterend', errorDiv);
+    } else {
+        // Es email u otro campo - insertar justo después del input
+        input.insertAdjacentElement('afterend', errorDiv);
+    }
+}
+
+// Función para limpiar error
+function clearFieldError(input) {
+    input.classList.remove('input-error');
+    
+    // Buscar el mensaje de error en diferentes ubicaciones
+    let errorElement = null;
+    
+    if (input.closest('.flex.gap-2')) {
+        // Es el campo de teléfono
+        const flexContainer = input.closest('.flex.gap-2');
+        errorElement = flexContainer.nextElementSibling;
+    } else {
+        // Es email u otro campo
+        errorElement = input.nextElementSibling;
+    }
+    
+    if (errorElement && errorElement.classList.contains('error-message')) {
+        errorElement.remove();
+    }
+}
+
+// Función para marcar como válido
+function markFieldValid(input) {
+    clearFieldError(input);
+    input.classList.add('input-success');
+}
+
+// Configurar validación para un formulario
+function setupFormValidation(phoneInputId, emailInputId, countrySelectorId, formId) {
+    const phoneInput = document.getElementById(phoneInputId);
+    const emailInput = document.getElementById(emailInputId);
+    const countryCodeInput = document.getElementById(countrySelectorId);
+    const form = document.getElementById(formId);
+    
+    if (!phoneInput || !emailInput || !form) return;
+    
+    // Validación en tiempo real para email
+    emailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email && !validateEmail(email)) {
+            showFieldError(this, 'Ingrese un correo electrónico válido');
+        } else if (email) {
+            markFieldValid(this);
+        }
+    });
+    
+    emailInput.addEventListener('input', function() {
+        if (this.classList.contains('input-error')) {
+            const email = this.value.trim();
+            if (validateEmail(email)) {
+                markFieldValid(this);
+            }
+        }
+    });
+    
+    // Validación en tiempo real para teléfono
+    phoneInput.addEventListener('blur', function() {
+        const phone = this.value.trim();
+        const countryCode = countryCodeInput ? countryCodeInput.value : '+51';
+        
+        if (phone) {
+            const validation = validatePhone(phone, countryCode);
+            if (!validation.valid) {
+                showFieldError(this, validation.message);
+            } else {
+                markFieldValid(this);
+            }
+        }
+    });
+    
+    phoneInput.addEventListener('input', function() {
+        // Solo permitir números y espacios
+        this.value = this.value.replace(/[^\d\s]/g, '');
+        
+        if (this.classList.contains('input-error')) {
+            const phone = this.value.trim();
+            const countryCode = countryCodeInput ? countryCodeInput.value : '+51';
+            const validation = validatePhone(phone, countryCode);
+            if (validation.valid) {
+                markFieldValid(this);
+            }
+        }
+    });
+    
+    // Validación al enviar formulario
+    form.addEventListener('submit', function(e) {
+        let hasErrors = false;
+        
+        // Validar email
+        const email = emailInput.value.trim();
+        if (!email) {
+            showFieldError(emailInput, 'El correo electrónico es requerido');
+            hasErrors = true;
+        } else if (!validateEmail(email)) {
+            showFieldError(emailInput, 'Ingrese un correo electrónico válido');
+            hasErrors = true;
+        }
+        
+        // Validar teléfono
+        const phone = phoneInput.value.trim();
+        const countryCode = countryCodeInput ? countryCodeInput.value : '+51';
+        
+        if (!phone) {
+            showFieldError(phoneInput, 'El número de celular es requerido');
+            hasErrors = true;
+        } else {
+            const validation = validatePhone(phone, countryCode);
+            if (!validation.valid) {
+                showFieldError(phoneInput, validation.message);
+                hasErrors = true;
+            }
+        }
+        
+        if (hasErrors) {
+            e.preventDefault();
+            // Hacer scroll al primer error
+            const firstError = form.querySelector('.input-error');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstError.focus();
+            }
+        }
+    });
+}
+
+// Inicializar validaciones para ambos formularios
+document.addEventListener('DOMContentLoaded', function() {
+    // Formulario principal de cotización
+    setupFormValidation('mainPhone', 'mainCorreo', 'countryCodeInput1', 'mainContactForm');
+    
+    // Formulario del modal de inspección
+    setupFormValidation('modalPhone', 'modalCorreo', 'countryCodeInput2', 'modalQuoteForm');
+});
+
+// Actualizar validación cuando se cambia el país
+const originalSelectCountry = window.selectCountry;
+window.selectCountry = function(selectorId, countryCode, dialCode, countryName) {
+    originalSelectCountry(selectorId, countryCode, dialCode, countryName);
+    
+    // Re-validar el teléfono si ya tiene valor
+    let phoneInput;
+    let countryCodeInput;
+    
+    if (selectorId === 'countrySelector1') {
+        phoneInput = document.getElementById('mainPhone');
+        countryCodeInput = document.getElementById('countryCodeInput1');
+    } else if (selectorId === 'countrySelector2') {
+        phoneInput = document.getElementById('modalPhone');
+        countryCodeInput = document.getElementById('countryCodeInput2');
+    }
+    
+    if (phoneInput && phoneInput.value.trim()) {
+        const validation = validatePhone(phoneInput.value.trim(), dialCode);
+        if (!validation.valid) {
+            showFieldError(phoneInput, validation.message);
+        } else {
+            markFieldValid(phoneInput);
+        }
+    }
+};
 </script>
 
 <!-- Script de Búsqueda -->
