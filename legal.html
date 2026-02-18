@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Legal - MaqPro</title>
+    <meta content="Términos y condiciones, política de privacidad y libro de reclamaciones de MaqPro."
+        name="description" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BB1D1D9QN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7BB1D1D9QN');
+    </script>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: "#0f3c66",
+                            light: "#2563eb",
+                            dark: "#0a2744"
+                        },
+                        secondary: "#0ea5e9",
+                        surface: {
+                            light: "#ffffff",
+                            off: "#f8fafc",
+                            dark: "#1e293b"
+                        }
+                    },
+                    fontFamily: {
+                        display: ["Montserrat", "sans-serif"],
+                        body: ["Roboto", "sans-serif"],
+                    }
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="font-body text-slate-600 antialiased bg-surface-off flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 border-b border-white/10 shadow-xl bg-slate-900/90 backdrop-blur-md">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="h-8 flex items-center">
+                    <img src="src/logo/MQ - LOGO BLANCO SIN FONDO.png" alt="MaqPro Logo" class="h-full w-auto">
+                </div>
+                <nav class="hidden lg:flex items-center gap-6">
+                    <a class="text-sm font-semibold text-slate-200 hover:text-white transition-colors"
+                        href="index1.html#inicio">INICIO</a>
+                    <a class="text-sm font-semibold text-slate-200 hover:text-white transition-colors"
+                        href="index1.html#planes">PLANES</a>
+                    <a class="text-sm font-semibold text-slate-200 hover:text-white transition-colors"
+                        href="index1.html#contacto">CONTACTO</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-20">
+        <!-- Hero -->
+        <section class="bg-primary-dark relative py-24 overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+            </div>
+            <div class="container mx-auto px-4 relative z-10 text-center text-white">
+                <h1 class="text-3xl md:text-5xl font-display font-bold mb-4">Centro de Transparencia</h1>
+                <p class="text-blue-200 text-lg max-w-2xl mx-auto">Términos legales, políticas de privacidad y canales
+                    de atención de SVC INGENIEROS S.A.C.</p>
+            </div>
+        </section>
+
+        <!-- Content -->
+        <section class="py-16 bg-slate-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+                    <!-- Sidebar Nav -->
+                    <div class="lg:w-1/4">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sticky top-24">
+                            <button onclick="switchTab('terms')" id="tab-terms"
+                                class="w-full text-left px-4 py-3 rounded-lg font-bold text-primary bg-blue-50 flex items-center gap-3 transition-colors mb-1">
+                                <span class="material-symbols-outlined">gavel</span> Términos y Condiciones
+                            </button>
+                            <button onclick="switchTab('privacy')" id="tab-privacy"
+                                class="w-full text-left px-4 py-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 hover:text-primary flex items-center gap-3 transition-colors mb-1">
+                                <span class="material-symbols-outlined">security</span> Privacidad y Datos
+                            </button>
+                            <button onclick="switchTab('claims')" id="tab-claims"
+                                class="w-full text-left px-4 py-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 hover:text-primary flex items-center gap-3 transition-colors">
+                                <span class="material-symbols-outlined">menu_book</span> Libro de Reclamaciones
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="lg:w-3/4 bg-white rounded-xl shadow-sm border border-slate-200 p-8 min-h-[600px]">
+
+                        <!-- Terms Content -->
+                        <div id="content-terms" class="tab-content block animate-fade-in-up">
+                            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                                <div
+                                    class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined">gavel</span>
+                                </div>
+                                <h2 class="text-2xl font-bold text-slate-900">Términos y Condiciones de Uso</h2>
+                            </div>
+
+                            <div class="prose prose-slate max-w-none text-slate-600 space-y-6">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">1. Propiedad Intelectual y
+                                        Derechos de Autor</h4>
+                                    <p style="text-align: justify;">Todo el contenido alojado en este sitio web,
+                                        incluyendo de forma enunciativa pero
+                                        no limitativa: diseños, interfaces, códigos fuente (HTML/JavaScript), textos,
+                                        manuales técnicos, fotografías de maquinaria, logotipos, gráficos y
+                                        combinaciones de colores, son propiedad exclusiva de <strong>SVC INGENIEROS
+                                            S.A.C.</strong></p>
+                                    <p class="mt-2" style="text-align: justify;">Queda <strong>estrictamente
+                                            prohibida</strong> la reproducción, copia, distribución,
+                                        transformación o uso comercial de cualquier elemento de esta web sin la
+                                        autorización previa y por escrito de la empresa. El uso no autorizado de estos
+                                        elementos será sancionado conforme a las
+                                        leyes de Propiedad Industrial y Derechos de Autor vigentes en Perú.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">2. Exclusión de Responsabilidad
+                                        por Daños Técnicos
+                                    </h4>
+                                    <p style="text-align: justify;">SVC INGENIEROS S.A.C. no garantiza la ausencia de
+                                        virus ni de otros elementos
+                                        lesivos en los contenidos de este sitio web. En consecuencia: </p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li style="text-align: justify;">No nos hacemos responsables por daños o
+                                            perjuicios de cualquier
+                                            naturaleza que puedan sufrir los equipos (hardware) o programas
+                                            (software) del Usuario, causados por cualquier clase de virus, troyanos, o
+                                            cualquier otra circunstancia relacionada directa o indirectamente con el
+                                            acceso o navegación en nuestra página web.</li>
+                                        <li style="text-align: justify;">Es responsabilidad exclusiva del Usuario contar
+                                            con herramientas
+                                            adecuadas para la detección y desinfección de programas maliciosos.</li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">3. Uso de Hipervínculos (Links)
+                                    </h4>
+                                    <p style="text-align: justify;">El establecimiento de un hipervínculo hacia nuestra
+                                        web no implica la existencia de relaciones entre <strong>SVC INGENIEROS
+                                            S.A.C.</strong> y el propietario de la página web en la que se establezca.
+                                    </p>
+                                    <p class="mt-2" style="text-align: justify;">La empresa no asume responsabilidad
+                                        alguna por los contenidos o
+                                        servicios ofrecidos en páginas de terceros enlazadas desde nuestro sitio.
+                                        El Usuario accede a dichos enlaces bajo su propio riesgo. </p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">4. Prohibiciones del Usuario</h4>
+                                    <p style="text-align: justify;">Queda prohibido utilizar la web para: </p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li style="text-align: justify;">
+                                            Introducir o difundir virus informáticos o archivos que dañen la
+                                            operatividad de la plataforma.
+                                        </li>
+                                        <li style="text-align: justify;">
+                                            Realizar cobros indebidos a nombre de la empresa o suplantar la identidad de
+                                            nuestros técnicos
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">5. Actualización de Notas Legales
+                                    </h4>
+                                    <p style="text-align: justify;">SVC INGENIEROS S.A.C. se reserva el derecho de
+                                        modificar, actualizar o ampliar estas notas legales en cualquier momento y sin
+                                        previo aviso. Es responsabilidad del Usuario revisar estos términos de manera
+                                        periódica.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">6. Ley Aplicable y Jurisdicción
+                                    </h4>
+                                    <p style="text-align: justify;">Estas condiciones se rigen por las leyes de la
+                                        República del Perú. Cualquier controversia será resuelta ante los tribunales de
+                                        la ciudad de Lima</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Privacy Content -->
+                        <div id="content-privacy" class="tab-content hidden animate-fade-in-up">
+                            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                                <div
+                                    class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                                    <span class="material-symbols-outlined">security</span>
+                                </div>
+                                <h2 class="text-2xl font-bold text-slate-900">Política de Privacidad</h2>
+                            </div>
+
+                            <div class="prose prose-slate max-w-none text-slate-600 space-y-6">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">1. Tratamiento de Datos Personales
+                                    </h4>
+                                    <p style="text-align: justify;">De conformidad con la Ley N° 29733 (LPDP), los datos
+                                        personales que el Usuario facilite (nombres, teléfonos, correos, etc.) serán
+                                        incorporados en los bancos de datos de SVC INGENIEROS S.A.C.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">2. Finalidad</h4>
+                                    <p style="text-align: justify;">Los datos se utilizarán para la gestión de servicios
+                                        técnicos, contacto con locadores para el envío de muestras, emisión de
+                                        comprobantes electrónicos y atención de consultas comerciales.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">3. Seguridad</h4>
+                                    <p style="text-align: justify;">Hemos implementado medidas de seguridad de nivel
+                                        técnico y legal para evitar la pérdida o acceso no autorizado a su información.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">4. Uso de la Información por los
+                                        Usuarios</h4>
+                                    <p style="text-align: justify;">El Usuario se compromete a proporcionar información
+                                        veraz y actualizada. Queda prohibido el uso de la información técnica (manuales
+                                        o protocolos) expuesta en la web para fines que compitan deslealmente con SVC
+                                        INGENIEROS S.A.C. o que pongan en riesgo la operatividad de maquinarias de
+                                        terceros.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">5. Cookies</h4>
+                                    <p style="text-align: justify;">Este sitio web utiliza "Cookies" (pequeños archivos
+                                        de texto que el sitio almacena en su navegador). Estas cookies sirven para:</p>
+                                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                                        <li style="text-align: justify;">Optimizar la velocidad de carga del sitio.</li>
+                                        <li style="text-align: justify;">Analizar el tráfico de visitas de forma
+                                            anónima.</li>
+                                        <li style="text-align: justify;">Recordar sus preferencias de navegación.</li>
+                                    </ul>
+                                    <p class="mt-2" style="text-align: justify;">Usted puede configurar su navegador
+                                        para bloquear las cookies, aunque esto podría limitar algunas funciones de la
+                                        plataforma de informes técnicos.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">6. Derechos ARCO</h4>
+                                    <p style="text-align: justify;">El titular de los datos puede ejercer sus derechos
+                                        de Acceso, Rectificación, Cancelación y Oposición en cualquier momento.</p>
+                                    <div
+                                        class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-2 flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-primary">mail</span>
+                                        <div>
+                                            <p class="font-bold text-primary">Canal de Atención</p>
+                                            <p class="text-sm">Enviando un correo a <a
+                                                    href="mailto:comercial@svcingenieros.com"
+                                                    class="underline">comercial@svcingenieros.com</a> o presentándose en
+                                                nuestra sede en Av. Universitaria 8533, Comas, Lima.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Claims Content -->
+                        <div id="content-claims" class="tab-content hidden animate-fade-in-up">
+                            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                                <div
+                                    class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600">
+                                    <span class="material-symbols-outlined">menu_book</span>
+                                </div>
+                                <h2 class="text-2xl font-bold text-slate-900">Libro de Reclamaciones</h2>
+                            </div>
+
+                            <div class="text-center py-8">
+                                <span
+                                    class="material-symbols-outlined text-6xl text-slate-300 mb-4">support_agent</span>
+                                <h3 class="text-xl font-bold text-slate-800 mb-2">¿Tuvo algún inconveniente con nuestro
+                                    servicio?</h3>
+                                <p class="text-slate-600 max-w-md mx-auto mb-8">Estamos comprometidos con la mejora
+                                    continua. Si desea presentar un reclamo o queja, hemos habilitado un canal directo.
+                                </p>
+
+                                <div
+                                    class="bg-slate-50 border border-slate-200 rounded-xl p-6 max-w-lg mx-auto text-left">
+                                    <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary">mail</span>
+                                        Pasos para registrar su reclamo:
+                                    </h4>
+                                    <ol class="list-decimal pl-5 space-y-3 text-sm text-slate-600">
+                                        <li>Envíe un correo a <strong>comercial@svcingenieros.com</strong></li>
+                                        <li>Coloque en el asunto: <strong>"LIBRO DE RECLAMACIONES - [Su
+                                                Nombre]"</strong></li>
+                                        <li>Detalle lo sucedido, incluyendo fecha, servicio contratado y personal
+                                            involucrado (si aplica).</li>
+                                        <li>Adjunte evidencia si la tuviera.</li>
+                                    </ol>
+                                    <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500 text-center">
+                                        Recibirá una respuesta formal en un plazo máximo de 15 días hábiles conforme a
+                                        ley.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary-dark text-slate-400 pt-10 pb-10 border-t border-slate-800 mt-auto">
+        <div class="container mx-auto px-4 lg:px-8 text-center text-sm">
+            <p>© 2026 SVC INGENIEROS S.A.C. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // Update Buttons
+            document.querySelectorAll('button[id^="tab-"]').forEach(btn => {
+                btn.classList.remove('bg-blue-50', 'text-primary', 'font-bold');
+                btn.classList.add('text-slate-600', 'font-medium');
+                if (btn.id === `tab-${tabId}`) {
+                    btn.classList.add('bg-blue-50', 'text-primary', 'font-bold');
+                    btn.classList.remove('text-slate-600', 'font-medium');
+                }
+            });
+
+            // Update Content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+                if (content.id === `content-${tabId}`) {
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                }
+            });
+
+            // Scroll to top of content on mobile
+            if (window.innerWidth < 1024) {
+                document.querySelector('.tab-content:not(.hidden)').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Check URL parameters for direct linking
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+
+            if (section && ['terms', 'privacy', 'claims'].includes(section)) {
+                switchTab(section);
+                // Clean URL
+                const url = new URL(window.location);
+                url.searchParams.delete('section');
+                window.history.replaceState({}, '', url);
+            }
+        });
+    </script>
+</body>
+
+</html>
